@@ -1,4 +1,5 @@
 -- #877, #818
+SET client_min_messages TO ERROR;
 create table t(g geometry) DISTRIBUTED BY(g);
 select '#877.1', ST_EstimatedExtent('t','g');
 analyze t;
