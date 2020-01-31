@@ -1,11 +1,11 @@
-SET client_min_messages TO ERROR;
 -- #877, #818
-create table t(g geometry);
+create table t(g geometry) DISTRIBUTED BY(g);
 select '#877.1', ST_EstimatedExtent('t','g');
 analyze t;
 select '#877.2', ST_EstimatedExtent('public', 't','g');
-select '#877.2.deprecated', ST_Estimated_Extent('public', 't','g');
 SET client_min_messages TO NOTICE;
+select '#877.2.deprecated', ST_Estimated_Extent('public', 't','g');
+SET client_min_messages TO ERROR;
 insert into t(g) values ('LINESTRING(-10 -50, 20 30)');
 
 -- #877.3
@@ -29,7 +29,7 @@ drop table t;
 -- #3391
 -- drop table if exists p cascade;
 
-create table p(g geometry);
+create table p(g geometry) DISTRIBUTED BY(g);
 create table c1() inherits (p);
 create table c2() inherits (p);
 
@@ -124,9 +124,9 @@ delete from p where 't';
 delete from c1 where 't';
 delete from c2 where 't';
 
-delete from pg_statistic where starelid = 'p'::regclass;
-delete from pg_statistic where starelid = 'c1'::regclass;
-delete from pg_statistic where starelid = 'c2'::regclass;
+-- delete from pg_statistic where starelid = 'p'::regclass;
+-- delete from pg_statistic where starelid = 'c1'::regclass;
+-- delete from pg_statistic where starelid = 'c2'::regclass;
 
 analyze c1;
 analyze c2;
@@ -178,9 +178,9 @@ round(st_ymin(e.e)::numeric, 2), round(st_ymax(e.e)::numeric, 2) from e;
 with e as ( select ST_EstimatedExtent('public','c1','g', 't') as e )
 select '#3391.20', round(st_xmin(e.e)::numeric, 2), round(st_xmax(e.e)::numeric, 2),
 round(st_ymin(e.e)::numeric, 2), round(st_ymax(e.e)::numeric, 2) from e;
-
+SET client_min_messages TO NOTICE;
 drop table p cascade;
-
+SET client_min_messages TO ERROR;
 --
 -- Index assisted extent generation
 --
