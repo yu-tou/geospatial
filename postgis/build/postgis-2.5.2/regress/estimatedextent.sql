@@ -185,7 +185,7 @@ with e as ( select ST_EstimatedExtent('public','c1','g', 't') as e )
 select '#3391.20', round(st_xmin(e.e)::numeric, 2), round(st_xmax(e.e)::numeric, 2),
 round(st_ymin(e.e)::numeric, 2), round(st_ymax(e.e)::numeric, 2) from e;
 SET client_min_messages TO NOTICE;
-drop table p cascade;
+drop table p2 cascade;
 SET client_min_messages TO ERROR;
 --
 -- Index assisted extent generation
