@@ -1,6 +1,7 @@
 #877.1|
 #877.2|
 WARNING:  ST_Estimated_Extent signature was deprecated in 2.1.0. Please use ST_EstimatedExtent
+WARNING:  stats for "t.g" do not exist
 #877.2.deprecated|
 #877.3||||
 #877.4|-10.15000|20.15000|-50.40000|30.40000

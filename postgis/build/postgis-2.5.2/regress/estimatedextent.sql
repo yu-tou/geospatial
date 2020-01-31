@@ -121,25 +121,30 @@ round(st_ymin(e.e)::numeric, 2), round(st_ymax(e.e)::numeric, 2) from e;
 
 -- test calls with 3th parameter
 
-delete from p where 't';
-delete from c1 where 't';
-delete from c2 where 't';
+-- delete from p where 't';
+-- delete from c1 where 't';
+-- delete from c2 where 't';
 
 -- delete from pg_statistic where starelid = 'p'::regclass;
 -- delete from pg_statistic where starelid = 'c1'::regclass;
 -- delete from pg_statistic where starelid = 'c2'::regclass;
+drop table p cascade;
+
+create table p2(g geometry) DISTRIBUTED BY(g);
+create table c1() inherits (p2);
+create table c2() inherits (p2);
 
 analyze c1;
 analyze c2;
-analyze p;
+analyze p2;
 
 -- #3391.13
-with e as ( select ST_EstimatedExtent('public','p','g','t') as e )
+with e as ( select ST_EstimatedExtent('public','p2','g','t') as e )
 select '#3391.13', round(st_xmin(e.e)::numeric, 2), round(st_xmax(e.e)::numeric, 2),
 round(st_ymin(e.e)::numeric, 2), round(st_ymax(e.e)::numeric, 2) from e;
 
 -- #3391.14
-with e as ( select ST_EstimatedExtent('public','p','g','f') as e )
+with e as ( select ST_EstimatedExtent('public','p2','g','f') as e )
 select '#3391.14', round(st_xmin(e.e)::numeric, 2), round(st_xmax(e.e)::numeric, 2),
 round(st_ymin(e.e)::numeric, 2), round(st_ymax(e.e)::numeric, 2) from e;
 
@@ -158,15 +163,15 @@ insert into c1 values ('Point(1 1)'::geometry);
 
 analyze c1;
 analyze c2;
-analyze p;
+analyze p2;
 
 -- #3391.17
-with e as ( select ST_EstimatedExtent('public','p','g','f') as e )
+with e as ( select ST_EstimatedExtent('public','p2','g','f') as e )
 select '#3391.17', round(st_xmin(e.e)::numeric, 2), round(st_xmax(e.e)::numeric, 2),
 round(st_ymin(e.e)::numeric, 2), round(st_ymax(e.e)::numeric, 2) from e;
 
 -- #3391.18
-with e as ( select ST_EstimatedExtent('public','p','g','t') as e )
+with e as ( select ST_EstimatedExtent('public','p2','g','t') as e )
 select '#3391.18', round(st_xmin(e.e)::numeric, 2), round(st_xmax(e.e)::numeric, 2),
 round(st_ymin(e.e)::numeric, 2), round(st_ymax(e.e)::numeric, 2) from e;
 
