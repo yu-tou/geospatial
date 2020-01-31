@@ -3,7 +3,8 @@ CREATE TABLE serialize_test (
         id INTEGER,
         description VARCHAR,
         ewkt VARCHAR,
-        serialized TEXT);
+        serialized TEXT)
+DISTRIBUTED BY (id);
 
 INSERT INTO serialize_test (
         id, description, ewkt, serialized
