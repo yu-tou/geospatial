@@ -359,9 +359,12 @@ pgis_geometry_clusterwithin_finalfn(PG_FUNCTION_ARGS)
 	Datum result = 0;
 	Datum geometry_array = 0;
 
+	elog(WARNING, "start final func");
+
 	if (PG_ARGISNULL(0))
 		PG_RETURN_NULL();
 
+	elog(WARNING, "arg0 not null");
 	p = (pgis_abs*) PG_GETARG_POINTER(0);
 
 	if (!p->data)
@@ -370,8 +373,11 @@ pgis_geometry_clusterwithin_finalfn(PG_FUNCTION_ARGS)
 		PG_RETURN_NULL();
 	}
 
+	elog(WARNING, "p data not null");
 	geometry_array = pgis_accum_finalfn(p, CurrentMemoryContext, fcinfo);
+	elog(WARNING, "geo array");
 	result = PGISDirectFunctionCall2( cluster_within_distance_garray, geometry_array, p->data);
+	elog(WARNING, "result");
 	if (!result)
 		PG_RETURN_NULL();
 
