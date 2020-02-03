@@ -51,30 +51,6 @@ export PATH
 
 
 TESTS = \
-# 	loader/Point \
-# 	loader/PointM \
-# 	loader/PointZ \
-# 	loader/MultiPoint \
-# 	loader/MultiPointM \
-# 	loader/MultiPointZ \
-# 	loader/Arc \
-# 	loader/ArcM \
-# 	loader/ArcZ \
-# 	loader/Polygon \
-# 	loader/PolygonM \
-# 	loader/PolygonZ \
-# 	loader/TSTPolygon \
-# 	loader/TSIPolygon \
-# 	loader/TSTIPolygon \
-# 	loader/PointWithSchema \
-# 	loader/NoTransPoint \
-# 	loader/NotReallyMultiPoint \
-# 	loader/MultiToSinglePoint \
-# 	loader/ReprojectPts \
-# 	loader/ReprojectPtsGeog \
-# 	loader/Latin1 \
-# 	loader/Latin1-implicit \
-# 	loader/mfile \
 	dumper/literalsrid \
 	dumper/realtable \
 	affine \
