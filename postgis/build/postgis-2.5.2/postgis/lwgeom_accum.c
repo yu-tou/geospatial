@@ -448,8 +448,10 @@ PGISDirectFunctionCall2(PGFunction func, Datum arg1, Datum arg2)
 	fcinfo.argnull[0] = false;
 	fcinfo.argnull[1] = false;
 
+	elog(WARNING, "before cast fcinfo");
 	result = (*func) (&fcinfo);
 
+	elog(WARNING, "after cast fcinfo");
 	/* Check for null result, returning a "NULL" Datum if indicated */
 	if (fcinfo.isnull){
 
