@@ -439,8 +439,10 @@ PGISDirectFunctionCall2(PGFunction func, Datum arg1, Datum arg2)
 	FunctionCallInfoData fcinfo;
 	Datum           result;
 
+	elog(WARNING, "start call 2");
 	InitFunctionCallInfoData(fcinfo, NULL, 2, InvalidOid, NULL, NULL);
 
+	elog(WARNING, "init done");
 	fcinfo.arg[0] = arg1;
 	fcinfo.arg[1] = arg2;
 	fcinfo.argnull[0] = false;
@@ -449,9 +451,13 @@ PGISDirectFunctionCall2(PGFunction func, Datum arg1, Datum arg2)
 	result = (*func) (&fcinfo);
 
 	/* Check for null result, returning a "NULL" Datum if indicated */
-	if (fcinfo.isnull)
-		return (Datum) 0;
+	if (fcinfo.isnull){
 
+		elog(WARNING, "fcinfo null");
+		return (Datum) 0;
+	}
+
+	elog(WARNING, "call 2 done");
 	return result;
 #else
 	LOCAL_FCINFO(fcinfo, 2);
