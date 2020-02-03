@@ -396,7 +396,7 @@ PGISDirectFunctionCall1(PGFunction func, Datum arg1)
 	Datum           result;
 
 
-	InitFunctionCallInfoData(fcinfo, NULL, 1, NULL, NULL);
+	InitFunctionCallInfoData(fcinfo, NULL, 1, InvalidOid, NULL, NULL);
 
 
 	fcinfo.arg[0] = arg1;
@@ -413,7 +413,7 @@ PGISDirectFunctionCall1(PGFunction func, Datum arg1)
 	LOCAL_FCINFO(fcinfo, 1);
 	Datum result;
 
-	InitFunctionCallInfoData(*fcinfo, NULL, 1, NULL, NULL);
+	InitFunctionCallInfoData(*fcinfo, NULL, 1, InvalidOid, NULL, NULL);
 
 	fcinfo->args[0].value = arg1;
 	fcinfo->args[0].isnull = false;
@@ -439,7 +439,7 @@ PGISDirectFunctionCall2(PGFunction func, Datum arg1, Datum arg2)
 	FunctionCallInfoData fcinfo;
 	Datum           result;
 
-	InitFunctionCallInfoData(fcinfo, NULL, 2, NULL, NULL);
+	InitFunctionCallInfoData(fcinfo, NULL, 2, InvalidOid, NULL, NULL);
 
 	fcinfo.arg[0] = arg1;
 	fcinfo.arg[1] = arg2;
@@ -457,7 +457,7 @@ PGISDirectFunctionCall2(PGFunction func, Datum arg1, Datum arg2)
 	LOCAL_FCINFO(fcinfo, 2);
 	Datum result;
 
-	InitFunctionCallInfoData(*fcinfo, NULL, 2, NULL, NULL);
+	InitFunctionCallInfoData(*fcinfo, NULL, 2, InvalidOid, NULL, NULL);
 
 	fcinfo->args[0].value = arg1;
 	fcinfo->args[1].value = arg2;
