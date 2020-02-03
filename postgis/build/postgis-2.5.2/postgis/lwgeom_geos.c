@@ -3030,6 +3030,9 @@ Datum cluster_within_distance_garray(PG_FUNCTION_ARGS)
 	elog(WARNING, "before align");
 	get_typlenbyvalalign(array->elemtype, &elmlen, &elmbyval, &elmalign);
 	elog(WARNING, "after align");
+
+	elog(WARNING, "construct array params nclusters %d, elmtype %d, elmlen %d, elmbyval %d, elmalign %d",
+		nclusters, array->elemtype, elmlen, elmbyval, elmalign);
 	result =  construct_array(result_array_data, nclusters, array->elemtype, elmlen, elmbyval, elmalign);
 
 	elog(WARNING, "after construct");
