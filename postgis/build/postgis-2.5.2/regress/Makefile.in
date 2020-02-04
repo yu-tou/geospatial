@@ -64,9 +64,7 @@ TESTS = \
 	ctors \
 	curvetoline \
 	dump \
-	dumppoints \
 	empty \
-	estimatedextent \
 	forcecurve \
 	geography \
 	geometric_median \
