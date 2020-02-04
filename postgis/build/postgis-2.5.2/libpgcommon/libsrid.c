@@ -7903,7 +7903,7 @@ char * getProj4StringStatic(int srid)
 
 /**
  * Return 1 if given srid is planner (0 otherwise)
- * Return -1 if srid is not in spatial_ref_sys 
+ * Return -1 if srid is not in spatial_ref_sys
  */
 int is_srid_planar(int srid)
 {
@@ -7943,7 +7943,7 @@ char * getSRSbySRIDbyRule(int srid, bool short_crs, char *buffer)
 }
 
 /**
- * Given SRS, return its srid. 
+ * Given SRS, return its srid.
  * Short SRS will be: auth_name:srid, auth_name does not contain ':'
  * Full SRS will be: auth_name::srid, auth_name does not contain '::'
  */
@@ -7957,7 +7957,7 @@ int getSRIDbySRSbyRule(const char* srs)
     char *occur = strstr(srs, "::");
     if (occur != NULL) {        // Full SRS name
         srid_str = occur + 2;
-    } else {                
+    } else {
         occur = strstr(srs, ":");
         if (occur != NULL) {    // Short SRS name
             srid_str = occur + 1;
