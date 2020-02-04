@@ -395,6 +395,16 @@ char* GetProj4StringSPI(int srid)
 	char *proj_str = palloc(maxproj4len);
 	char proj4_spi_buffer[256];
 
+    /* In GPDB, we don't support the SRID retrieving from spatial_ref_sys,
+     *  otherwise we will meet the known issue: cannot access relation from segments.
+     *  so we search static hash table firstly to by-pass this issue issue.
+     */
+	char *proj4_string = getProj4StringStatic(srid);
+	if (proj4_string != NULL) {
+		strncpy(proj_str, proj4_string, maxproj4len - 1);
+		return proj_str;
+	}
+
 	/* Connect */
 	spi_result = SPI_connect();
 	if (spi_result != SPI_OK_CONNECT)
