@@ -150,7 +150,7 @@ FROM (VALUES
     ('LINESTRING(0 0,0 1)'::geometry),
     ('GEOMETRYCOLLECTION EMPTY'::geometry),
     ('POINT EMPTY'::geometry)
-) AS f(geom);
+) AS f(geom) DISTRIBUTED BY (geom);
 
 SELECT '#3777', ST_AsText(geom), count(*)
 FROM t1
@@ -165,7 +165,7 @@ FROM (VALUES
     ('POINT(0 1)'::geometry),
     ('LINESTRING(0 0,0 1)'::geometry),
     ('GEOMETRYCOLLECTION EMPTY'::geometry)
-) AS f(geom);
+) AS f(geom) DISTRIBUTED BY (geom);
 
 SELECT '#3777.1', ST_AsText(geom), count(*)
 FROM t2
