@@ -25,6 +25,13 @@
 
 #include "postgres.h"
 #include "fmgr.h"
+#include "miscadmin.h"
+#include "utils/memutils.h"
+#include "executor/spi.h"
+#include "access/hash.h"
+#include "utils/hsearch.h"
+
+#include "../postgis_config.h"
 
 #include "liblwgeom_internal.h"
 #include "lwgeom_log.h"
