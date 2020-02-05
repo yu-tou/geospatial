@@ -141,7 +141,7 @@ SELECT 'ndovm2', array_agg(i) FROM v WHERE g &&& 'POINTZ(0 0 1)'::geometry
 ORDER BY 1;
 
 -- GROUP BY on empty
-SELECT '#3777', ST_AsText(geom), count(*)
+CREATE TABLE t1 AS SELECT geom
 FROM (VALUES
     ('POINT(0 0)'::geometry),
     ('POINT(0 0)'::geometry),
@@ -150,10 +150,13 @@ FROM (VALUES
     ('LINESTRING(0 0,0 1)'::geometry),
     ('GEOMETRYCOLLECTION EMPTY'::geometry),
     ('POINT EMPTY'::geometry)
-) AS f(geom)
+) AS f(geom);
+
+SELECT '#3777', ST_AsText(geom), count(*)
+FROM t1
 GROUP BY geom ORDER BY 2;
 
-SELECT '#3777.1', ST_AsText(geom), count(*)
+CREATE TABLE t2 AS SELECT geom
 FROM (VALUES
     ('POINT(0 0)'::geometry),
     ('POINT(0 0)'::geometry),
@@ -162,5 +165,10 @@ FROM (VALUES
     ('POINT(0 1)'::geometry),
     ('LINESTRING(0 0,0 1)'::geometry),
     ('GEOMETRYCOLLECTION EMPTY'::geometry)
-) AS f(geom)
+) AS f(geom);
+
+SELECT '#3777.1', ST_AsText(geom), count(*)
+FROM t2
 GROUP BY geom ORDER BY 2;
+
+DROP TABLE IF EXISTS t1, t2;
