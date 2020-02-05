@@ -23,6 +23,8 @@
  *
  **********************************************************************/
 
+#include "postgres.h"
+#include "fmgr.h"
 
 #include "liblwgeom_internal.h"
 #include "lwgeom_log.h"
