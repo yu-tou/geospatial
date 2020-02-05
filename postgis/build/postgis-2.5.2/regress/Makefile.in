@@ -128,9 +128,9 @@ TESTS = \
 # tests can't pass
 # ---------------------------------
     #long_xact \
-        #Greenplum does not support long transcation for user-defined data types with triggerns
+        #Greenplum does not support long transcation for user-defined data types with triggers
     #typmod \
-        #Greenplum doesnot support BINARY, so test cannot continues...
+        #Greenplum doesnot support BINARY, so test cannot continue...
     #regress_index \
         #BUG to fix, JIRA: MPP-24904
 
@@ -281,7 +281,7 @@ staged-install: staged-install-raster staged-install-topology
 	#$(MAKE) -C ../loader REGRESS=1 DESTDIR=$(REGRESS_INSTALLDIR) install
 
 test check: staged-install
-	$(PERL) run_test.pl $(RUNTESTFLAGS) $(SFCGALTESTFLAGS) $(TESTS) && \
+	$(PERL) run_test.pl $(RUNTESTFLAGS) $(SFCGALTESTFLAGS) $(TESTS)
 # 	$(PERL) run_test.pl --upgrade $(RUNTESTFLAGS) $(SFCGALTESTFLAGS) $(TESTS)
 
 garden:
