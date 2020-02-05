@@ -316,11 +316,13 @@ int gserialized_cmp(const GSERIALIZED *g1, const GSERIALIZED *g2)
 		x.f = 2.0 * dptr[0];
 		y.f = 2.0 * dptr[1];
 		hash1 = uint32_interleave_2(x.u, y.u);
+		elog(WARNING, "g1 x.f %f, y.f %f", x.f, y.f);
 
 		dptr = (double*)(g2->data + sizeof(double));
 		x.f = 2.0 * dptr[0];
 		y.f = 2.0 * dptr[1];
 		hash2 = uint32_interleave_2(x.u, y.u);
+		elog(WARNING, "g2 x.f %f, y.f %f", x.f, y.f);
 
 		/* If the SRIDs are the same, we can use hash inequality */
 		/* to jump us out of this function early. Otherwise we still */
