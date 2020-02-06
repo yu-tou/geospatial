@@ -20,6 +20,9 @@ s/ERROR:  parse error - invalid geometry \(lwgeom_pg.c:\d+\)/ERROR:  parse error
 m/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projection': no arguments in initialization list.*/
 s/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projection': no arguments in initialization list.*/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projection': no arguments in initialization list/
 
+m/ERROR:  Geometry type (Polygon) does not match column type (MultiPolygon).*/
+s/ERROR:  Geometry type (Polygon) does not match column type (MultiPolygon).*/ERROR:  Geometry type (Polygon) does not match column type (MultiPolygon)/
+
 m/ \(lwgeom_pg.c:\d+\)/
 s/ \(lwgeom_pg.c:\d+\)//
 -- end_matchsubs
