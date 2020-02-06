@@ -133,6 +133,7 @@ SELECT '#175', ST_AsEWKT(ST_GeomFromEWKT('SRID=26915;POINT(482020 4984378.)'));
 SELECT '#178a', ST_XMin(ST_MakeBox2D(ST_Point(5, 5), ST_Point(0, 0)));
 SELECT '#178b', ST_XMax(ST_MakeBox2D(ST_Point(5, 5), ST_Point(0, 0)));
 
+SET client_min_messages TO NOTICE;
 -- #179 --
 SELECT '#179a', ST_MakeLine(ARRAY[NULL,NULL,NULL,NULL]);
 SELECT '#179b', ST_MakeLine(ARRAY[NULL,NULL,NULL,NULL]);
@@ -144,6 +145,7 @@ SELECT '#183', ST_AsText(ST_SnapToGrid(ST_LineToCurve(ST_LineMerge(ST_Collect(ST
 SELECT '#210a', ST_Union(ARRAY[NULL,NULL,NULL,NULL]) ;
 SELECT '#210b', ST_MakeLine(ARRAY[NULL,NULL,NULL,NULL]) ;
 
+SET client_min_messages TO WARNING;
 -- #213 --
 SELECT '#213', round(ST_Perimeter(ST_CurveToLine(ST_GeomFromEWKT('CURVEPOLYGON(COMPOUNDCURVE(CIRCULARSTRING(0 0,2 0, 2 1, 2 3, 4 3),(4 3, 4 5, 1 4, 0 0)))'))));
 
@@ -444,6 +446,7 @@ SELECT '#1273', st_equals(p.g, postgis_addbbox(p.g)) from p;
 WITH p AS ( SELECT 'MULTIPOINT((832694.188 816254.625))'::geometry as g )
 SELECT '#1273.1', st_equals(p.g, postgis_dropbbox(p.g)) from p;
 
+SET client_min_messages TO NOTICE;
 -- #1292
 SELECT '#1292', ST_AsText(ST_SnapToGrid(ST_GeomFromText(
 	'GEOMETRYCOLLECTION(POINT(180 90),POLYGON((140 50,150 50,180 50,140 50),(140 60,150 60,180 60,140 60)))'
@@ -467,6 +470,8 @@ INSERT INTO a(geog) VALUES('SRID=4326;POLYGON ((0 0, 10 0, 10 10, 0 0))'::geogra
 INSERT INTO a(geom) VALUES('SRID=4326;POLYGON ((0 0, 10 0, 10 10, 0 0))'::geometry);
 SELECT '#1320.geog.2', geometrytype(geog::geometry), st_srid(geog::geometry) FROM a where geog is not null;
 SELECT '#1320.geom.2', geometrytype(geom), st_srid(geom) FROM a where geom is not null;
+
+SET client_min_messages TO WARNING;
 -- Even if it's a trigger changing the type
 CREATE OR REPLACE FUNCTION triga() RETURNS trigger AS
 $$ BEGIN
