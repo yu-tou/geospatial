@@ -2,7 +2,7 @@
 -- Regression tests that were filed as cases in bug tickets,
 -- referenced by bug number for historical interest.
 --
-SET client_min_messages TO NOTICE;
+SET client_min_messages TO WARNING;
 -- NOTE: some tests _require_ spatial_ref_sys entries.
 -- In particular, the GML output ones want auth_name and auth_srid too,
 -- so we provide one for EPSG:4326
@@ -40,7 +40,7 @@ SELECT ST_Within(g, 'POLYGON((0 0,10 0,20 10,10 20,0 20,-10 10,0 0))') FROM
 ) AS v(g);
 
 -- #33 --
-CREATE TABLE road_pg (ID INTEGER, NAME VARCHAR(32));
+CREATE TABLE road_pg (ID INTEGER, NAME VARCHAR(32)) DISTRIBUTED BY (ID);
 SELECT '#33', AddGeometryColumn( '', 'public', 'road_pg','roads_geom', 330000, 'POINT', 2 );
 DROP TABLE road_pg;
 
@@ -154,7 +154,7 @@ SELECT '#234', ST_AsText(ST_GeomFromText('COMPOUNDCURVE( (0 0,1 1) )'));
 --SELECT '#239', ST_AsSVG('010700002031BF0D0000000000');
 
 -- #241 --
-CREATE TABLE c ( the_geom GEOMETRY);
+CREATE TABLE c ( the_geom GEOMETRY) DISTRIBUTED BY (the_geom);
 INSERT INTO c SELECT ST_MakeLine(ST_Point(-10,40),ST_Point(40,-10)) As the_geom;
 INSERT INTO c SELECT ST_MakeLine(ST_Point(-10,40),ST_Point(40,-10)) As the_geom;
 SELECT '#241', sum(ST_LineCrossingDirection(the_geom, ST_GeomFromText('LINESTRING(1 2,3 4)'))) FROM c;
@@ -262,7 +262,7 @@ END;
 $BODY$ LANGUAGE 'plpgsql' IMMUTABLE
   COST 100;
 
-CREATE TABLE utm_dots ( the_geog geography, utm_srid integer);
+CREATE TABLE utm_dots ( the_geog geography, utm_srid integer)  DISTRIBUTED BY (utm_srid);
 INSERT INTO utm_dots SELECT geography(ST_SetSRID(ST_Point(i*10,j*10),4326)) As the_geog, utmzone(ST_SetSRID(ST_Point(i*10,j*10),4326)) As utm_srid FROM generate_series(-17,17) As i CROSS JOIN generate_series(-8,8) As j;
 
 SELECT ST_AsText(the_geog) as the_pt,
@@ -400,7 +400,7 @@ SELECT '#845', ST_Intersects('POINT(169.69960846592 -46.5061209281002)'::geometr
 SELECT '#834', ST_AsEWKT(ST_Intersection('LINESTRING(0 0,0 10,10 10,10 0)', 'LINESTRING(10 10 4,10 0 5,0 0 5)'));
 
 -- #884 --
-CREATE TABLE foo (id integer, the_geom geometry);
+CREATE TABLE foo (id integer, the_geom geometry) DISTRIBUTED BY (id);
 INSERT INTO foo VALUES (1, st_geomfromtext('MULTIPOLYGON(((-113.6 35.4,-113.6 35.8,-113.2 35.8,-113.2 35.4,-113.6 35.4),(-113.5 35.5,-113.3 35.5,-113.3 35.7,-113.5 35.7,-113.5 35.5)))'));
 INSERT INTO foo VALUES (2, st_geomfromtext('MULTIPOLYGON(((-113.7 35.3,-113.7 35.9,-113.1 35.9,-113.1 35.3,-113.7 35.3),(-113.6 35.4,-113.2 35.4,-113.2 35.8,-113.6 35.8,-113.6 35.4)),((-113.5 35.5,-113.5 35.7,-113.3 35.7,-113.3 35.5,-113.5 35.5)))'));
 
@@ -456,7 +456,7 @@ SELECT '#1292.1', ST_AsText(ST_GeomFromText('POINT(180.00000000001 95)')::geogra
 -- #1320
 SELECT '<#1320>';
 CREATE TABLE A ( geom geometry(MultiPolygon, 4326),
-                 geog geography(MultiPolygon, 4326) );
+                 geog geography(MultiPolygon, 4326) ) DISTRIBUTED BY (geom);
 -- Valid inserts
 INSERT INTO a(geog) VALUES('SRID=4326;MULTIPOLYGON (((0 0, 10 0, 10 10, 0 0)))'::geography);
 INSERT INTO a(geom) VALUES('SRID=4326;MULTIPOLYGON (((0 0, 10 0, 10 10, 0 0)))'::geometry);
@@ -537,7 +537,7 @@ SELECT '#1450', GeometryType('POINT(0 0)'::geography), GeometryType('POLYGON EMP
 select '#1482', ST_Srid('POINT(0 0)'::geography(point, 0)::geometry);
 
 -- #852
-CREATE TABLE cacheable (id int, g geometry);
+CREATE TABLE cacheable (id int, g geometry)  DISTRIBUTED BY (id);
 COPY cacheable FROM STDIN;
 1	POINT(0.5 0.5000000000001)
 2	POINT(0.5 0.5000000000001)
@@ -605,7 +605,7 @@ select '#1580.2', ST_Transform('SRID=4326;POINT(180 90)'::geometry, 3395); -- fa
 select '#1580.3', ST_Summary(ST_Transform('SRID=4326;POINT(0 0)'::geometry, 3395));
 
 -- #1596 --
-CREATE TABLE road_pg (ID INTEGER, NAME VARCHAR(32));
+CREATE TABLE road_pg (ID INTEGER, NAME VARCHAR(32))  DISTRIBUTED BY (ID);
 SELECT '#1596.1', AddGeometryColumn( 'road_pg','roads_geom', 3395, 'POINT', 2 );
 SELECT '#1596.2', UpdateGeometrySRID( 'road_pg','roads_geom', 330000);
 SELECT '#1596.3', srid FROM geometry_columns
