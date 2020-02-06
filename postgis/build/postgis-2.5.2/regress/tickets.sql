@@ -411,7 +411,7 @@ INSERT INTO foo VALUES (2, st_geomfromtext('MULTIPOLYGON(((-113.7 35.3,-113.7 35
 
 select '#884', id, ST_Within(
 ST_GeomFromText('POINT (-113.4 35.6)'), the_geom
-) from foo;
+) from foo order by id;
 
 select '#938', 'POLYGON EMPTY'::geometry::box2d;
 
@@ -436,7 +436,7 @@ WITH inp AS ( SELECT 'LINESTRING(0 0, 1 1)'::geometry as s,
 -- #1023 --
 select '#1023', 'POINT(10 4)'::geometry = 'POINT(10 4)'::geometry;
 select '#1023.a', 'POINT(10 4)'::geometry = 'POINT(10 5)'::geometry;
-select '#1023.b', postgis_addbbox('POINT(10 4)'::geometry) = 'POINT(10 4)'::geometry;
+-- select '#1023.b', postgis_addbbox('POINT(10 4)'::geometry) = 'POINT(10 4)'::geometry;
 
 -- #1069 --
 select '#1060', ST_Relate(ST_GeomFromText('POINT EMPTY',4326), ST_GeomFromText('POINT EMPTY',4326)) As result;
@@ -459,6 +459,7 @@ SELECT '#1292', ST_AsText(ST_SnapToGrid(ST_GeomFromText(
 SELECT '#1292.1', ST_AsText(ST_GeomFromText('POINT(180.00000000001 95)')::geography),
 	ST_AsText(ST_GeomFromText('POINT(185 90.00000000001)')::geography);
 
+SET client_min_messages TO WARNING;
 -- #1320
 SELECT '<#1320>';
 CREATE TABLE A ( geom geometry(MultiPolygon, 4326),
@@ -474,7 +475,6 @@ INSERT INTO a(geom) VALUES('SRID=4326;POLYGON ((0 0, 10 0, 10 10, 0 0))'::geomet
 SELECT '#1320.geog.2', geometrytype(geog::geometry), st_srid(geog::geometry) FROM a where geog is not null;
 SELECT '#1320.geom.2', geometrytype(geom), st_srid(geom) FROM a where geom is not null;
 
-SET client_min_messages TO WARNING;
 -- Even if it's a trigger changing the type
 CREATE OR REPLACE FUNCTION triga() RETURNS trigger AS
 $$ BEGIN
