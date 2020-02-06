@@ -156,7 +156,7 @@ SELECT '#3777', ST_AsText(geom), count(*)
 FROM t1
 GROUP BY geom ORDER BY 2;
 
-CREATE TABLE t2 AS SELECT ST_AsText(geom)
+CREATE TABLE t2 AS SELECT ST_AsText(geom) as geom
 FROM (VALUES
     ('POINT(0 0)'::geometry),
     ('POINT(0 0)'::geometry),
