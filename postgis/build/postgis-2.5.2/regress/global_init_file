@@ -21,12 +21,9 @@ m/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projectio
 s/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projection': no arguments in initialization list.*/ERROR:  transform_geom: couldn't parse proj4 output string: 'invalid projection': no arguments in initialization list/
 
 m/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\).*\n/
-s/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\).*\n/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\)\n/
+s/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\).*\n//
 
 m/ \(seg\d+.*\)/
 s/ \(seg\d+.*\)//
-
-m/#1596.6|public\.road_pg\.roads_geom SRID changed to 0 /
-s/#1596.6|public\.road_pg\.roads_geom SRID changed to 0 /#1596.6|public\.road_pg\.roads_geom SRID changed to 0/
 
 -- end_matchsubs
