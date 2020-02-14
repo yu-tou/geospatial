@@ -552,12 +552,12 @@ COPY cacheable FROM STDIN;
 \.
 select '#852.1', id, -- first run is not cached, consequent are cached
   st_intersects(g, 'POLYGON((0 0, 10 10, 1 0, 0 0))'::geometry),
-  st_intersects(g, 'POLYGON((0 0, 1 1, 1 0, 0 0))'::geometry) from cacheable;
+  st_intersects(g, 'POLYGON((0 0, 1 1, 1 0, 0 0))'::geometry) from cacheable order by id;
 UPDATE cacheable SET g = 'POINT(0.5 0.5)';
 -- New select, new cache
 select '#852.2', id, -- first run is not cached, consequent are cached
   st_intersects(g, 'POLYGON((0 0, 10 10, 1 0, 0 0))'::geometry),
-  st_intersects(g, 'POLYGON((0 0, 1 1, 1 0, 0 0))'::geometry) from cacheable;
+  st_intersects(g, 'POLYGON((0 0, 1 1, 1 0, 0 0))'::geometry) from cacheable order by id;
 DROP TABLE cacheable;
 
 -- #1489
@@ -613,6 +613,7 @@ select '#1580.2', ST_Transform('SRID=4326;POINT(180 90)'::geometry, 3395); -- fa
 select '#1580.3', ST_Summary(ST_Transform('SRID=4326;POINT(0 0)'::geometry, 3395));
 
 -- #1596 --
+SET client_min_messages TO NOTICE;
 CREATE TABLE road_pg (ID INTEGER, NAME VARCHAR(32))  DISTRIBUTED BY (ID);
 SELECT '#1596.1', AddGeometryColumn( 'road_pg','roads_geom', 3395, 'POINT', 2 );
 SELECT '#1596.2', UpdateGeometrySRID( 'road_pg','roads_geom', 330000);
@@ -626,6 +627,7 @@ SELECT '#1596.7', srid FROM geometry_columns
   WHERE f_table_name = 'road_pg' AND f_geometry_column = 'roads_geom';
 DROP TABLE road_pg;
 
+SET client_min_messages TO WARNING;
 -- #1596
 WITH inp AS ( SELECT
  'POLYGON((-176 -22,-176 -21,-175 -21,-175 -22,-176 -22))'::geography as a,
@@ -924,20 +926,20 @@ SELECT '#3368', ST_AsTWKB('0106000000010000000103000000010000001F0000007CCD1788E
 SELECT '#3375', ST_AsText(ST_RemoveRepeatedPoints('GEOMETRYCOLLECTION(POINT(0 -7))'::geometry, 1000));
 
 -- #3399
-WITH g as (
-select 'POLYGON((1 0, 0 1, 1 2, 2 1, 1 0))'::geometry as geom
-),
-n as (
-select n from unnest(ARRAY[-1,0,1,10,100,1000]) n
-),
-pts as (
-  select n,(st_dump(st_generatepoints(geom, n))).geom from g,n
-)
-select '#3399' as t, n, count(*) from
-g, pts
-where st_intersects(g.geom, pts.geom)
-group by n
-ORDER BY n;
+-- WITH g as (
+-- select 'POLYGON((1 0, 0 1, 1 2, 2 1, 1 0))'::geometry as geom
+-- ),
+-- n as (
+-- select n from unnest(ARRAY[-1,0,1,10,100,1000]) n
+-- ),
+-- pts as (
+--   select n,(st_dump(st_generatepoints(geom, n))).geom from g,n
+-- )
+-- select '#3399' as t, n, count(*) from
+-- g, pts
+-- where st_intersects(g.geom, pts.geom)
+-- group by n
+-- ORDER BY n;
 
 -- #3461
 SELECT '#3461', ST_GeomFromKML('<Polygon>
