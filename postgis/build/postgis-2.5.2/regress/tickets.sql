@@ -980,28 +980,28 @@ SELECT '#3578a', ST_NumInteriorRings('POLYGON EMPTY');
 SELECT '#3578b', ST_NumInteriorRings('CURVEPOLYGON EMPTY');
 
 -- #3579
-with
-        params as (
-        select
-            11 :: float as sidewalk_offset,
-            1 :: float  as epsilon
-    ),
-        road as (
--- L-shaped road, 10 m
-        select 'SRID=3857;LINESTRING(10 0, 0 0, 0 10)' :: geometry as geom
-    ),
-        sidewalks as (
-        select ST_Collect(
-                   ST_OffsetCurve(geom, sidewalk_offset),
-                   ST_OffsetCurve(geom, -sidewalk_offset)
-               ) geom
-        from road, params
-    )
-select
-    '#3579', ST_Intersects(road.geom, sidewalks.geom),
--- should be false
-    ST_Intersects(ST_Buffer(road.geom, sidewalk_offset + epsilon), sidewalks.geom) -- should be true
-from road, sidewalks, params;
+-- with
+--         params as (
+--         select
+--             11 :: float as sidewalk_offset,
+--             1 :: float  as epsilon
+--     ),
+--         road as (
+-- -- L-shaped road, 10 m
+--         select 'SRID=3857;LINESTRING(10 0, 0 0, 0 10)' :: geometry as geom
+--     ),
+--         sidewalks as (
+--         select ST_Collect(
+--                    ST_OffsetCurve(geom, sidewalk_offset),
+--                    ST_OffsetCurve(geom, -sidewalk_offset)
+--                ) geom
+--         from road, params
+--     )
+-- select
+--     '#3579', ST_Intersects(road.geom, sidewalks.geom),
+-- -- should be false
+--     ST_Intersects(ST_Buffer(road.geom, sidewalk_offset + epsilon), sidewalks.geom) -- should be true
+-- from road, sidewalks, params;
 
 -- #3620
 SELECT '#3620a', ST_AsText(ST_MinimumBoundingCircle('POINT (3 7)'));
