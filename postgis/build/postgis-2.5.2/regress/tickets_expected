@@ -288,22 +288,12 @@ ERROR:  invalid KML representation (lwgeom_pg.c:128)
 #3569|BOX(1 2,3 4)
 #3578a|0
 #3578b|0
-#3579|f|t
 #3620a|POINT(3 7)
 #3620b|POINT(2 8)
 #3627a|o}~~|AdshNoSsBgd@eGoBlm@wKhj@~@?
 #3627b|t
 #3704|t
-#3709|t
 #3774|t
-#1014a|POINT(0 0)
-#1014a|POINT(0 0)
-#1014b|POINT(0 1)
-#1014c|1|POINT(0 1)
-#1014c|2|POINT(1 2)
-#1014c|3|POINT(2 3)
-#1014d|SRID=1;POINT(0 1)
-#1014d|SRID=2;POINT(0 1)
 #3930|62065
 NOTICE:  Too few points in geometry component at or near point 0 0
 #4011|ST_LineString|LINESTRING(0 0,1 1)|f|t
