@@ -26,4 +26,7 @@ s/ERROR:  Geometry type \(Polygon\) does not match column type \(MultiPolygon\).
 m/ \(seg\d+.*\)/
 s/ \(seg\d+.*\)//
 
+m/ \(lwgeom_pg.c:\d+\)/
+s/ \(lwgeom_pg.c:\d+\)//
+
 -- end_matchsubs
