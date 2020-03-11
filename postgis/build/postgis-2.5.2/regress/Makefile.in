@@ -163,7 +163,6 @@ endif
 # ST_RelateMatch, ST_IsValidDetail, ST_SharedPaths ,
 # ST_Snap, ST_UnaryUnion, ST_MakeClean
 TESTS += \
-	offsetcurve \
 	relatematch \
 	isvaliddetail \
 	sharedpaths \
@@ -172,6 +171,8 @@ TESTS += \
 	unaryunion \
 	clean \
 	relate_bnr
+
+#	offsetcurve \
 
 # GEOS-3.4 adds:
 # ST_DelaunayTriangles
