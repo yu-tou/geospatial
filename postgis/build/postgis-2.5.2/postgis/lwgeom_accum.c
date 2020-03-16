@@ -359,25 +359,16 @@ pgis_geometry_clusterwithin_finalfn(PG_FUNCTION_ARGS)
 	Datum result = 0;
 	Datum geometry_array = 0;
 
-	elog(WARNING, "start final func");
-
 	if (PG_ARGISNULL(0))
 		PG_RETURN_NULL();
-
-	elog(WARNING, "arg0 not null");
 	p = (pgis_abs*) PG_GETARG_POINTER(0);
 
 	if (!p->data)
 	{
-		elog(ERROR, "Tolerance not defined");
 		PG_RETURN_NULL();
 	}
-
-	elog(WARNING, "p data not null");
 	geometry_array = pgis_accum_finalfn(p, CurrentMemoryContext, fcinfo);
-	elog(WARNING, "geo array");
 	result = PGISDirectFunctionCall2( cluster_within_distance_garray, geometry_array, p->data);
-	elog(WARNING, "result");
 	if (!result)
 		PG_RETURN_NULL();
 
@@ -439,27 +430,19 @@ PGISDirectFunctionCall2(PGFunction func, Datum arg1, Datum arg2)
 	FunctionCallInfoData fcinfo;
 	Datum           result;
 
-	elog(WARNING, "start call 2");
 	InitFunctionCallInfoData(fcinfo, NULL, 2, InvalidOid, NULL, NULL);
 
-	elog(WARNING, "init done");
 	fcinfo.arg[0] = arg1;
 	fcinfo.arg[1] = arg2;
 	fcinfo.argnull[0] = false;
 	fcinfo.argnull[1] = false;
-
-	elog(WARNING, "before cast fcinfo");
 	result = (*func) (&fcinfo);
 
-	elog(WARNING, "after cast fcinfo");
 	/* Check for null result, returning a "NULL" Datum if indicated */
 	if (fcinfo.isnull){
-
-		elog(WARNING, "fcinfo null");
 		return (Datum) 0;
 	}
 
-	elog(WARNING, "call 2 done");
 	return result;
 #else
 	LOCAL_FCINFO(fcinfo, 2);

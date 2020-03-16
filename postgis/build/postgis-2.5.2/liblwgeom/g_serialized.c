@@ -23,10 +23,10 @@
  *
  **********************************************************************/
 
-#include "postgres.h" //for VARSIZE and SET_VARSIZE
 #include "liblwgeom_internal.h"
 #include "lwgeom_log.h"
 #include "lwgeodetic.h"
+#include "postgres.h" //for VARSIZE and SET_VARSIZE
 
 /***********************************************************************
 * GSERIALIZED metadata utility functions.
