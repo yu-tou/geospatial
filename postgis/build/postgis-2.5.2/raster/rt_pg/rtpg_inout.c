@@ -184,7 +184,7 @@ Datum RASTER_send(PG_FUNCTION_ARGS)
 	}
 
 	/* Create varlena object */
-	result_size = wkb_size  VARHDRSZ;
+	result_size = wkb_size + VARHDRSZ;
 	result = (bytea *)palloc(result_size);
 	SET_VARSIZE(result, result_size);
 	memcpy(VARDATA(result), wkb, VARSIZE(result) - VARHDRSZ);

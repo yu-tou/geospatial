@@ -32,6 +32,7 @@
 #include <executor/spi.h>
 
 #include "rtpg_internal.h"
+#include "libsrid.h"
 
 /* string replacement function taken from
  * http://ubuntuforums.org/showthread.php?s=aa6f015109fd7e4c7e30d2fd8b717497&t=141670&page=3
@@ -309,7 +310,7 @@ LIMIT 1
 
 	/* Greenplum tends to use in-memory hash instead of SPI query */
 	if (getSRSbySRIDbyRule(srid, true, query) != NULL) {
-		len = strlen(query)  1;
+		len = strlen(query) + 1;
 		srs = SPI_palloc(len);
 
 		if (NULL == srs) {

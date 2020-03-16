@@ -23,7 +23,7 @@
  *
  **********************************************************************/
 
-
+#include "postgres.h" //for VARSIZE and SET_VARSIZE
 #include "liblwgeom_internal.h"
 #include "lwgeom_log.h"
 #include "lwgeodetic.h"
@@ -143,8 +143,10 @@ GSERIALIZED* gserialized_copy(const GSERIALIZED *g)
 {
 	GSERIALIZED *g_out = NULL;
 	assert(g);
-	g_out = (GSERIALIZED*)lwalloc(SIZE_GET(g->size));
-	memcpy((uint8_t*)g_out,(uint8_t*)g,SIZE_GET(g->size));
+	//g_out = (GSERIALIZED*)lwalloc(SIZE_GET(g->size));
+	//memcpy((uint8_t*)g_out,(uint8_t*)g,SIZE_GET(g->size));
+	g_out = (GSERIALIZED*)lwalloc(VARSIZE(g));
+	memcpy((uint8_t*)g_out,(uint8_t*)g,VARSIZE(g));
 	return g_out;
 }
 
@@ -1230,7 +1232,8 @@ GSERIALIZED* gserialized_from_lwgeom(LWGEOM *geom, size_t *size)
 	** We are aping PgSQL code here, PostGIS code should use
 	** VARSIZE to set this for real.
 	*/
-	g->size = return_size << 2;
+	//g->size = return_size << 2;
+	SET_VARSIZE(g, return_size);
 
 	/* Set the SRID! */
 	gserialized_set_srid(g, geom->srid);
