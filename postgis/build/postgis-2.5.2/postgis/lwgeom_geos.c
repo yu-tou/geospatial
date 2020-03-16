@@ -3019,10 +3019,7 @@ Datum cluster_within_distance_garray(PG_FUNCTION_ARGS)
 	}
 	pfree(lw_results);
 
-
 	get_typlenbyvalalign(array->elemtype, &elmlen, &elmbyval, &elmalign);
-
-		nclusters, array->elemtype, elmlen, elmbyval, elmalign);
 	result =  construct_array(result_array_data, nclusters, array->elemtype, elmlen, elmbyval, elmalign);
 
 	if (!result)
