@@ -2955,7 +2955,6 @@ PG_FUNCTION_INFO_V1(cluster_within_distance_garray);
 Datum cluster_within_distance_garray(PG_FUNCTION_ARGS)
 {
 
-	elog(WARNING, "start cluster within");
 	Datum* result_array_data;
 	ArrayType *array, *result;
 	int is3d = 0;
