@@ -65,6 +65,7 @@ TESTS = \
 	ctors \
 	curvetoline \
 	dump \
+	dumppoints \
 	empty \
 	forcecurve \
 	geography \
