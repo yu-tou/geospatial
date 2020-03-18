@@ -33,5 +33,3 @@ NOTICE:  drop cascades to 2 other objects
 2.b null|
 3.a null|
 3.b null|
-4.a box|BOX(-100 -100,100 100)
-4.b box|BOX(-200 -200,200 200)
