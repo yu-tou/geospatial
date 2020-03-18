@@ -109,10 +109,10 @@ DROP TABLE dwithgeogbug;
 
 -- Test segmentize on geography
 -- Check that the maximum sphere distance over all the segments is lesser than the max distance used for segmentize
--- WITH
--- seg as (select ST_Segmentize('LINESTRING(0 0 10,0 90 20)'::geography, 50000)::geometry as geom),
--- dumped as (SELECT (st_dumppoints(geom)).path[1] as id, (st_dumppoints(geom)).geom from seg)
--- SELECT 'segmentize_geography', max(st_distance(d1.geom::geography, d2.geom::geography, false))::int FROM dumped as d1, dumped as d2 where d2.id = d1.id + 1;
+WITH
+seg as (select ST_Segmentize('LINESTRING(0 0 10,0 90 20)'::geography, 50000)::geometry as geom),
+dumped as (SELECT (st_dumppoints(geom)).path[1] as id, (st_dumppoints(geom)).geom from seg)
+SELECT 'segmentize_geography', max(st_distance(d1.geom::geography, d2.geom::geography, false))::int FROM dumped as d1, dumped as d2 where d2.id = d1.id + 1;
 
 -- Check that st_segmentize creates segments on the geodesic path
 SELECT 'segmentize_geography2', st_dwithin(st_pointn(st_segmentize('linestring(1 47,-64 47)'::geography, 3000000)::geometry, 2), 'SRID=4326;POINT(-31.5 51.81)'::geometry, 0.01);
