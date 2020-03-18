@@ -29,4 +29,7 @@ s/ \(seg\d+.*\)//
 m/ \(lwgeom_pg.c:\d+\)/
 s/ \(lwgeom_pg.c:\d+\)//
 
+m/ \(.*.c:\d+\)/
+s/ \(.*.c:\d+\)//
+
 -- end_matchsubs
