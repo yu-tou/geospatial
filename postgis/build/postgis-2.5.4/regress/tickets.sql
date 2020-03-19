@@ -434,9 +434,9 @@ WITH inp AS ( SELECT 'LINESTRING(0 0, 1 1)'::geometry as s,
  FROM inp;
 
 -- #1023 --
--- select '#1023', 'POINT(10 4)'::geometry = 'POINT(10 4)'::geometry;
--- select '#1023.a', 'POINT(10 4)'::geometry = 'POINT(10 5)'::geometry;
--- select '#1023.b', postgis_addbbox('POINT(10 4)'::geometry) = 'POINT(10 4)'::geometry;
+select '#1023', 'POINT(10 4)'::geometry = 'POINT(10 4)'::geometry;
+select '#1023.a', 'POINT(10 4)'::geometry = 'POINT(10 5)'::geometry;
+select '#1023.b', postgis_addbbox('POINT(10 4)'::geometry) = 'POINT(10 4)'::geometry;
 
 -- #1069 --
 select '#1060', ST_Relate(ST_GeomFromText('POINT EMPTY',4326), ST_GeomFromText('POINT EMPTY',4326)) As result;
@@ -786,9 +786,9 @@ FROM (SELECT 'POLYGON((1 1 1, 5 1 1,5 5 1, 1 5 1,1 1 1))'::geometry as a, 'LINES
 SELECT '#2108', ST_AsEWKT(ST_LineInterpolatePoint('SRID=3395;LINESTRING M EMPTY'::geometry, 0.5));
 SELECT '#2117', ST_AsEWKT(ST_PointOnSurface('SRID=3395;MULTIPOLYGON M EMPTY'::geometry));
 
--- SELECT '#2110.1', 'POINT(0 0)'::geometry = 'POINT EMPTY'::geometry;
--- SELECT '#2110.2', 'POINT EMPTY'::geometry = 'POINT EMPTY'::geometry;
--- SELECT '#2110.3', 'POINT(0 0)'::geometry = 'POINT(0 0)'::geometry;
+SELECT '#2110.1', 'POINT(0 0)'::geometry = 'POINT EMPTY'::geometry;
+SELECT '#2110.2', 'POINT EMPTY'::geometry = 'POINT EMPTY'::geometry;
+SELECT '#2110.3', 'POINT(0 0)'::geometry = 'POINT(0 0)'::geometry;
 
 SELECT '#2145',
 round(ST_Length(St_Segmentize(ST_GeographyFromText('LINESTRING(-89.3000030518 28.2000007629,-89.1999969482 89.1999969482,-89.1999969482 89.1999969482)'), 10000))::numeric,0);
@@ -926,20 +926,20 @@ SELECT '#3368', ST_AsTWKB('0106000000010000000103000000010000001F0000007CCD1788E
 SELECT '#3375', ST_AsText(ST_RemoveRepeatedPoints('GEOMETRYCOLLECTION(POINT(0 -7))'::geometry, 1000));
 
 -- #3399
--- WITH g as (
--- select 'POLYGON((1 0, 0 1, 1 2, 2 1, 1 0))'::geometry as geom
--- ),
--- n as (
--- select n from unnest(ARRAY[-1,0,1,10,100,1000]) n
--- ),
--- pts as (
---   select n,(st_dump(st_generatepoints(geom, n))).geom from g,n
--- )
--- select '#3399' as t, n, count(*) from
--- g, pts
--- where st_intersects(g.geom, pts.geom)
--- group by n
--- ORDER BY n;
+WITH g as (
+select 'POLYGON((1 0, 0 1, 1 2, 2 1, 1 0))'::geometry as geom
+),
+n as (
+select n from unnest(ARRAY[-1,0,1,10,100,1000]) n
+),
+pts as (
+  select n,(st_dump(st_generatepoints(geom, n))).geom from g,n
+)
+select '#3399' as t, n, count(*) from
+g, pts
+where st_intersects(g.geom, pts.geom)
+group by n
+ORDER BY n;
 
 -- #3461
 SELECT '#3461', ST_GeomFromKML('<Polygon>
@@ -980,28 +980,28 @@ SELECT '#3578a', ST_NumInteriorRings('POLYGON EMPTY');
 SELECT '#3578b', ST_NumInteriorRings('CURVEPOLYGON EMPTY');
 
 -- #3579
--- with
---         params as (
---         select
---             11 :: float as sidewalk_offset,
---             1 :: float  as epsilon
---     ),
---         road as (
--- -- L-shaped road, 10 m
---         select 'SRID=3857;LINESTRING(10 0, 0 0, 0 10)' :: geometry as geom
---     ),
---         sidewalks as (
---         select ST_Collect(
---                    ST_OffsetCurve(geom, sidewalk_offset),
---                    ST_OffsetCurve(geom, -sidewalk_offset)
---                ) geom
---         from road, params
---     )
--- select
---     '#3579', ST_Intersects(road.geom, sidewalks.geom),
--- -- should be false
---     ST_Intersects(ST_Buffer(road.geom, sidewalk_offset + epsilon), sidewalks.geom) -- should be true
--- from road, sidewalks, params;
+with
+        params as (
+        select
+            11 :: float as sidewalk_offset,
+            1 :: float  as epsilon
+    ),
+        road as (
+-- L-shaped road, 10 m
+        select 'SRID=3857;LINESTRING(10 0, 0 0, 0 10)' :: geometry as geom
+    ),
+        sidewalks as (
+        select ST_Collect(
+                   ST_OffsetCurve(geom, sidewalk_offset),
+                   ST_OffsetCurve(geom, -sidewalk_offset)
+               ) geom
+        from road, params
+    )
+select
+    '#3579', ST_Intersects(road.geom, sidewalks.geom),
+-- should be false
+    ST_Intersects(ST_Buffer(road.geom, sidewalk_offset + epsilon), sidewalks.geom) -- should be true
+from road, sidewalks, params;
 
 -- #3620
 SELECT '#3620a', ST_AsText(ST_MinimumBoundingCircle('POINT (3 7)'));
@@ -1015,40 +1015,40 @@ SELECT '#3627b', ST_Equals(geom, ST_LineFromEncodedPolyline(ST_AsEncodedPolyline
 SELECT '#3704', ST_AsX3D('LINESTRING EMPTY') = '';
 
 -- #3709
--- select '#3709', ST_SnapToGrid(ST_Project('SRID=4326;POINT(1 1)'::geography, 100000, 20)::geometry, 0.0001) = ST_SnapToGrid(ST_Project('SRID=4326;POINT(1 1)'::geography, -100000, 20+pi())::geometry, 0.0001);
+select '#3709', ST_SnapToGrid(ST_Project('SRID=4326;POINT(1 1)'::geography, 100000, 20)::geometry, 0.0001) = ST_SnapToGrid(ST_Project('SRID=4326;POINT(1 1)'::geography, -100000, 20+pi())::geometry, 0.0001);
 
 -- #3774
 select '#3774', abs(pi() + 2 - st_length('COMPOUNDCURVE(CIRCULARSTRING(0 0, 1 1, 2 0), (2 0, 4 0))'::geometry)) < 0.000000001;
 
 -- #1014
--- SELECT '#1014a', ST_AsText(g) FROM (
--- 	SELECT 'POINT(-0 0)'::geometry AS g
--- 	UNION
--- 	SELECT 'POINT(0 0)'::geometry AS g
--- ) a;
--- SELECT '#1014b', ST_AsText(g) FROM (
--- 	SELECT 'POINT(0 1)'::geometry AS g
--- 	UNION
--- 	SELECT 'POINT(0 1)'::geometry AS g
--- ) a;
--- CREATE TABLE rec (id integer, g geometry);
--- INSERT INTO rec VALUES (1, 'POINT(0 1)');
--- INSERT INTO rec VALUES (2, 'POINT(1 2)');
--- INSERT INTO rec VALUES (3, 'POINT(2 3)');
--- WITH RECURSIVE path (id, g) AS (
---     SELECT id, g FROM rec WHERE id = 1
---     UNION
---     SELECT rec.id, rec.g
---     FROM path, rec
---     WHERE ST_Y(path.g) = ST_X(rec.g)
--- )
--- SELECT '#1014c', id, st_astext(g) FROM path;
--- SELECT '#1014d', ST_AsEWKT(g) as t FROM (
--- 	SELECT 'SRID=1;POINT(0 1)'::geometry AS g
--- 	UNION
--- 	SELECT 'SRID=2;POINT(0 1)'::geometry AS g
--- ) a ORDER BY t;
--- DROP TABLE IF EXISTS rec;
+SELECT '#1014a', ST_AsText(g) FROM (
+	SELECT 'POINT(-0 0)'::geometry AS g
+	UNION
+	SELECT 'POINT(0 0)'::geometry AS g
+) a;
+SELECT '#1014b', ST_AsText(g) FROM (
+	SELECT 'POINT(0 1)'::geometry AS g
+	UNION
+	SELECT 'POINT(0 1)'::geometry AS g
+) a;
+CREATE TABLE rec (id integer, g geometry);
+INSERT INTO rec VALUES (1, 'POINT(0 1)');
+INSERT INTO rec VALUES (2, 'POINT(1 2)');
+INSERT INTO rec VALUES (3, 'POINT(2 3)');
+WITH RECURSIVE path (id, g) AS (
+    SELECT id, g FROM rec WHERE id = 1
+    UNION
+    SELECT rec.id, rec.g
+    FROM path, rec
+    WHERE ST_Y(path.g) = ST_X(rec.g)
+)
+SELECT '#1014c', id, st_astext(g) FROM path;
+SELECT '#1014d', ST_AsEWKT(g) as t FROM (
+	SELECT 'SRID=1;POINT(0 1)'::geometry AS g
+	UNION
+	SELECT 'SRID=2;POINT(0 1)'::geometry AS g
+) a ORDER BY t;
+DROP TABLE IF EXISTS rec;
 
 -- #3930
 SET client_min_messages TO NOTICE;
@@ -1094,8 +1094,8 @@ SELECT '#4037.3', ST_AsText(ST_SymDifference('POLYGON((0 0, 10 10, 0 10, 10 0, 0
 SELECT '#4037.4', ST_AsText(ST_Union('POLYGON((0 0, 10 10, 0 10, 10 0, 0 0))', ST_MakeEnvelope(2,2,8,8)));
 
 -- #4055
--- SELECT '#4055a', ST_SRID(unnest(ST_ClusterWithin(ARRAY['SRID=4326;POINT (3 7)'::geometry, 'SRID=4326;LINESTRING (3 0, 3 9)'], 0)));
--- SELECT '#4055b', ST_SRID(unnest(ST_ClusterIntersecting(ARRAY['SRID=4326;POINT (3 7)'::geometry, 'SRID=4326;LINESTRING (3 0, 3 9)'])));
+SELECT '#4055a', ST_SRID(unnest(ST_ClusterWithin(ARRAY['SRID=4326;POINT (3 7)'::geometry, 'SRID=4326;LINESTRING (3 0, 3 9)'], 0)));
+SELECT '#4055b', ST_SRID(unnest(ST_ClusterIntersecting(ARRAY['SRID=4326;POINT (3 7)'::geometry, 'SRID=4326;LINESTRING (3 0, 3 9)'])));
 
 --#4089
 select '#4089', st_astext(st_geomfromtwkb(st_AsTWKB(st_GeometryFromText('LINESTRING Z(1 1 1, 3 3 1)'), 1, 0, 0, false, true)));
