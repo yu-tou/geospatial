@@ -143,8 +143,6 @@ GSERIALIZED* gserialized_copy(const GSERIALIZED *g)
 {
 	GSERIALIZED *g_out = NULL;
 	assert(g);
-	//g_out = (GSERIALIZED*)lwalloc(SIZE_GET(g->size));
-	//memcpy((uint8_t*)g_out,(uint8_t*)g,SIZE_GET(g->size));
 	g_out = (GSERIALIZED*)lwalloc(VARSIZE(g));
 	memcpy((uint8_t*)g_out,(uint8_t*)g,VARSIZE(g));
 	return g_out;
@@ -298,8 +296,8 @@ int gserialized_cmp(const GSERIALIZED *g1, const GSERIALIZED *g2)
 	int g1_is_empty, g2_is_empty, cmp;
 	GBOX box1, box2;
 	uint64_t hash1, hash2;
-	size_t sz1 = SIZE_GET(g1->size);
-	size_t sz2 = SIZE_GET(g2->size);
+	size_t sz1 = VARSIZE(g1);
+	size_t sz2 = VARSIZE(g2);
 	union floatuint x, y;
 
 	/*
