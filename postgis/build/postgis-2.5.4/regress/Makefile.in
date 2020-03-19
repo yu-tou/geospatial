@@ -92,6 +92,7 @@ TESTS = \
 	regress \
 	regress_bdpoly \
 	regress_gist_index_nd \
+	regress_index \
 	regress_index_nulls \
 	regress_management \
 	regress_selectivity \
