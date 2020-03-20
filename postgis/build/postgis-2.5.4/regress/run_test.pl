@@ -1606,9 +1606,8 @@ sub uninstall_spatial
 
 		if ( $OBJ_COUNT_POST != $OBJ_COUNT_PRE )
 		{
-			#fail("Object count pre-install ($OBJ_COUNT_PRE) != post-uninstall ($OBJ_COUNT_POST)");
-			#return 0;
-            return 1;
+			fail("Object count pre-install ($OBJ_COUNT_PRE) != post-uninstall ($OBJ_COUNT_POST)");
+			return 0;
 		}
 		else
 		{
