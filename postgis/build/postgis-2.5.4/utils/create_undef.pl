@@ -128,6 +128,13 @@ while( my $line = <INPUT>)
 		}
 		push (@aggs, $defn)
 	}
+	elsif ($line =~ /^create ordered aggregate/i) {
+		my $defn = $line;
+		while( not $defn =~ /;\s*$/ ) {
+			$defn .= <INPUT>;
+		}
+		push (@aggs, $defn)
+	}
 	elsif ($line =~ /^create type ([\w\.]+)/i) {
 		push (@types, $1);
 		while( not $line =~ /;\s*$/ ) {
@@ -173,6 +180,10 @@ foreach my $agg (@aggs)
 		print "DROP AGGREGATE IF EXISTS $1 ($2);\n";
 	}
 	elsif ( $agg =~ /create aggregate\s*([\w\.]+)\s*\(\s*([\w,\.\s\[\]]+)\s*\)/ism )
+	{
+		print "DROP AGGREGATE IF EXISTS $1 ($2);\n";
+	}
+	elsif ( $agg =~ /create ordered aggregate\s*([\w\.]+)\s*\(\s*([\w,\.\s\[\]]+)\s*\)/ism )
 	{
 		print "DROP AGGREGATE IF EXISTS $1 ($2);\n";
 	}
