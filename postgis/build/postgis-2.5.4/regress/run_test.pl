@@ -1216,7 +1216,8 @@ sub run_raster_loader_test
 sub count_db_objects
 {
 	my $count = sql("WITH counts as (
-		select count(*) from pg_type union all
+		select count(*) from pg_type
+            where typname NOT LIKE '_%' union all
 		select count(*) from pg_proc union all
 		select count(*) from pg_cast union all
 		select count(*) from pg_aggregate union all
