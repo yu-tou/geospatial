@@ -121,7 +121,14 @@ SELECT make_test_raster(0, 3, 3, 0, 0);
 SELECT make_test_raster(0, 3, 3, 1, 0);
 
 SELECT DropRasterConstraints(current_schema(), 'test_raster_columns', 'rast'::name, 'regular_blocking');
-SELECT '#2', r_table_name, r_raster_column, srid, scale_x, scale_y, blocksize_x, blocksize_y, same_alignment, regular_blocking, num_bands, pixel_types, nodata_values, ST_AsEWKT(extent) FROM raster_columns WHERE r_table_name = 'test_raster_columns';
+-- SELECT '#2', r_table_name, r_raster_column, srid, scale_x, scale_y, blocksize_x, blocksize_y, same_alignment, regular_blocking, num_bands, pixel_types, nodata_values, ST_AsEWKT(extent) FROM raster_columns WHERE r_table_name = 'test_raster_columns';
+
+SELECT r_table_name, r_raster_column, srid, scale_x, scale_y, blocksize_x, blocksize_y, same_alignment, regular_blocking, num_bands, pixel_types, nodata_values,
+	CASE WHEN ST_Equals(extent,'POLYGON((3 0,0 0,0 3,0 6,3 6,6 6,6 3,6 0,3 0))'::geometry)
+		THEN 'POLYGON((3 0,0 0,0 3,0 6,3 6,6 6,6 3,6 0,3 0))'
+		ELSE ST_AsEWKT(extent)
+	END
+FROM raster_columns WHERE r_table_name = 'test_raster_columns';
 
 -- check spatial_index
 SELECT
