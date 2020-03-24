@@ -237,7 +237,7 @@ CREATE TABLE raster1 AS
 	SELECT
 		ST_AddBand(
 			ST_MakeEmptyRaster(90, 90, 0., 0., 1, -1, 0, 0, 0),
-			1, foo.path, NULL::int[]
+			1, foo1.path, NULL::int[]
 		) AS rast
 	FROM foo1;
 
