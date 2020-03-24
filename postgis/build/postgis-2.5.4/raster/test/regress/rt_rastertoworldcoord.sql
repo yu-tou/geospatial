@@ -1,3 +1,4 @@
+SET client_min_messages = NOTICE;
 CREATE TABLE raster_raster2world (
 	rid integer,
 	rast raster
@@ -151,3 +152,4 @@ SELECT
 FROM raster_raster2world order by rid;
 
 DROP TABLE raster_raster2world;
+RESET client_min_messages;

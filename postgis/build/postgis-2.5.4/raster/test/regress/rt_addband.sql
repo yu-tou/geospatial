@@ -225,6 +225,7 @@ FROM ST_BandMetadata((SELECT rast FROM raster_outdb_template WHERE rid = 4), ARR
 -- #3020
 SET postgis.gdal_enabled_drivers = 'GTiff';
 SET postgis.enable_outdb_rasters = true;
+
 CREATE TABLE foo1 AS
 	SELECT
 			path
@@ -233,6 +234,9 @@ CREATE TABLE foo1 AS
 	 	ARRAY[]::int[]
 	)
 	LIMIT 1;
+
+SET postgis.gdal_enabled_drivers = 'GTiff';
+SET postgis.enable_outdb_rasters = true;
 CREATE TABLE raster1 AS
 	SELECT
 		ST_AddBand(
@@ -241,6 +245,8 @@ CREATE TABLE raster1 AS
 		) AS rast
 	FROM foo1;
 
+SET postgis.gdal_enabled_drivers = 'GTiff';
+SET postgis.enable_outdb_rasters = true;
 SELECT
 	ST_Value(rast, 1, 1)
 FROM raster1
