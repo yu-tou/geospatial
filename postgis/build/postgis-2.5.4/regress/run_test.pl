@@ -745,6 +745,7 @@ sub run_simple_test
 	@lines = grep(!/^(LOG|SET|TRUNCATE|DISCARD)/, @lines);
 	@lines = grep(!/^LINE \d/, @lines);
 	@lines = grep(!/^\s+$/, @lines);
+    @lines = grep(!/NOTICE:  Table doesn't have 'distributed by' clause/i, @lines);
 
 	# Morph values into expected forms
 	for ( my $i = 0; $i < @lines; $i++ )
