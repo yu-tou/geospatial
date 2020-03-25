@@ -86,6 +86,16 @@ NOTICE:  Raster does not have band at index 2. Skipping raster
 NOTICE:  Raster does not have band at index 2. Skipping raster
 NOTICE:  Raster does not have band at index 2. Skipping raster
 NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
+NOTICE:  Raster does not have band at index 2. Skipping raster
 ERROR:  RASTER_histogramCoverage: Cannot get summary stats of coverage
 COMMIT
 RELEASE
