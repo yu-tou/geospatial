@@ -44,7 +44,7 @@ FROM ST_SummaryStats(
 	)
 	, TRUE
 );
-SELECT count FROM ST_SummaryStats(
+SELECT count FROM (SELECT * FROM ST_SummaryStats(
 	ST_SetValue(
 		ST_SetValue(
 			ST_SetValue(
@@ -59,8 +59,8 @@ SELECT count FROM ST_SummaryStats(
 		, 1, 5, 5, 3.14159
 	)
 	, TRUE
-);
-SELECT count FROM ST_SummaryStats(
+))q1;
+SELECT count FROM (SELECT * FROM ST_SummaryStats(
 	ST_SetValue(
 		ST_SetValue(
 			ST_SetValue(
@@ -75,7 +75,7 @@ SELECT count FROM ST_SummaryStats(
 		, 1, 5, 5, 3.14159
 	)
 	, FALSE
-);
+))q1;
 SELECT round(mean::numeric, 3), round(stddev::numeric, 3) FROM ST_SummaryStats(
 	ST_SetValue(
 		ST_SetValue(
