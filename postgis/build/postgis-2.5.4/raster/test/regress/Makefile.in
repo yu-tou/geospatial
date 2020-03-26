@@ -87,6 +87,7 @@ TEST_BANDPROPS = \
 	rt_pixelascentroids \
 	rt_setvalues_array \
 	rt_summarystats \
+	rt_count \
 	rt_histogram \
 	rt_valuecount \
 	rt_valuepercent \
@@ -98,7 +99,6 @@ TEST_BANDPROPS = \
 	rt_polygon \
 	rt_setbandpath
 
-# 	rt_count \
 # 	rt_quantile \
 
 TEST_UTILITY = \
