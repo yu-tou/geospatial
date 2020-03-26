@@ -114,7 +114,7 @@ INSERT INTO raster_nmapalgebra_in
 DO $$ DECLARE r record;
 BEGIN
 -- this ONLY works for PostgreSQL version 9.1 or higher
-IF array_to_string(regexp_matches(split_part(version(), ' ', 2), E'([0-9]+)\.([0-9]+)'), '')::int > 90 THEN
+IF array_to_string(regexp_matches(split_part(version(), ' ', 2), E'([0-9]+)\.([0-9]+)'), '')::int > 95 THEN
 	WITH foo AS (
 		SELECT
 			t1.rid,
