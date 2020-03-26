@@ -1,3 +1,4 @@
+SET client_min_messages TO WARNING;
 DROP TABLE IF EXISTS raster_gdalwarp_src;
 DROP TABLE IF EXISTS raster_gdalwarp_dst;
 CREATE TABLE raster_gdalwarp_src (
@@ -863,3 +864,5 @@ SELECT
 	ST_Metadata(ST_Rescale(rast, 2, 2)) AS rescale,
 	ST_Metadata(ST_Resize(rast, 0.5, 0.5)) AS resize
 FROM foo;
+
+RESET client_min_messages;
