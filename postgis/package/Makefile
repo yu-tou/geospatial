@@ -89,17 +89,6 @@ SHLIB_LINK := $(SHLIB_LINK_F) $(SHLIB_LINK)
 # modify paths in libs
 include Makefile.ops
 
-geos%.rpm:
-	cp ../rpms/geos*.rpm .
-proj%.rpm:
-	cp ../rpms/proj*.rpm .
-json%.rpm:
-	cp ../rpms/json*.rpm .
-gdal%.rpm:
-	cp ../rpms/gdal*.rpm .
-expat%.rpm:
-	cp ../rpms/expat*.rpm .
-
 gppkg_spec.yml: gppkg_spec.yml.in
 	cat $< | sed "s/#arch/$(ARCH)/g" | sed "s/#os/$(OS)/g" | sed 's/#gpver/$(GP_VERSION_NUM)/g' > $@
 
