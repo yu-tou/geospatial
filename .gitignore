@@ -26,7 +26,7 @@ cscope.*
 build.sh
 *.backup
 *.bak
-*.rpm
+# *.rpm
 gppkg_spec.yml
 *.gppkg
 
