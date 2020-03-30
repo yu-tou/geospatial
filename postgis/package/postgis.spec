@@ -8,7 +8,6 @@ Prefix:         /temp
 AutoReq:        no
 AutoProv:       no
 Provides:       postgis = %{postgis_ver}
-Requires:       geos = %{geos_ver}, proj = %{proj_ver}, json-c = %{json_ver}, gdal = %{gdal_ver}
 
 %description
 The PostGIS module provides geospatial extensions for Greenplum Database.
