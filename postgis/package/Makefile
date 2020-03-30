@@ -32,28 +32,28 @@ include ../Makefile.version
 GEOS_DIR=/usr/lib64/
 GEOS_CONFIG=$(GEOS_DIR)/bin/geos-config
 GEOS_RPM_FLAGS="--define 'geos_dir $(GEOS_DIR)' --define 'geos_ver $(GEOS_VER)' --define 'geos_rel $(GEOS_REL)'"
-GEOS_RPM=geos-$(GEOS_VER)-$(GEOS_REL).el7.$(ARCH).rpm
+GEOS_RPM=geos-$(GEOS_VER)-$(GEOS_REL).$(ARCH).rpm
 
 #Proj.4
 PROJ_DIR=/usr/lib64/
 PROJ_RPM_FLAGS="--define 'proj_dir $(PROJ_DIR)' --define 'proj_ver $(PROJ_VER)' --define 'proj_rel $(PROJ_REL)'"
-PROJ_RPM=proj-$(PROJ_VER)-$(PROJ_REL).el7.$(ARCH).rpm
+PROJ_RPM=proj-$(PROJ_VER)-$(PROJ_REL).$(ARCH).rpm
 
 #json-c
 JSON_DIR=/usr/lib64/
 JSON_RPM_FLAGS="--define 'json_dir $(JSON_DIR)' --define 'json_ver $(JSON_VER)' --define 'json_rel $(JSON_REL)'"
-JSON_RPM=json-c-$(JSON_VER)-$(JSON_REL).el7.$(ARCH).rpm
+JSON_RPM=json-c-$(JSON_VER)-$(JSON_REL).$(ARCH).rpm
 
 #GDAL
 GDAL_DIR=/usr/lib64/
 GDAL_CONFIG=$(GDAL_DIR)/bin/gdal-config
 GDAL_RPM_FLAGS="--define 'gdal_dir $(GDAL_DIR)' --define 'gdal_ver $(GDAL_VER)' --define 'gdal_rel $(GDAL_REL)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
-GDAL_RPM=gdal-$(GDAL_VER)-$(GDAL_REL).el7.$(ARCH).rpm
+GDAL_RPM=gdal-$(GDAL_VER)-$(GDAL_REL).$(ARCH).rpm
 
 # LIBEXPAT
 LIBEXPAT_DIR=/usr/lib64/
 LIBEXPAT_RPM_FLAGS="--define 'libexpat_dir $(LIBEXPAT_DIR)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
-LIBEXPAT_RPM=expat-$(LIBEXPAT_VER)-$(LIBEXPAT_REL).el7.$(ARCH).rpm
+LIBEXPAT_RPM=libexpat-$(LIBEXPAT_VER)-$(LIBEXPAT_REL).$(ARCH).rpm
 
 # POSTGIS
 POSTGIS_DIR=$(shell cd ../build/postgis-$(POSTGIS_VER) && pwd)
@@ -107,17 +107,17 @@ endif
 # for compiling
 gppkg: prepare build_postgis gppkg_only
 
-# gppkg_only: $(GEOS_DIR) $(PROJ_DIR) $(JSON_DIR) $(GDAL_DIR) $(LIBEXPAT_DIR)
-# 	$(MAKE) $(GEOS_RPM) RPM_FLAGS=$(GEOS_RPM_FLAGS)
-# 	$(MAKE) $(PROJ_RPM) RPM_FLAGS=$(PROJ_RPM_FLAGS)
-# 	$(MAKE) $(JSON_RPM) RPM_FLAGS=$(JSON_RPM_FLAGS)
-# 	$(MAKE) $(GDAL_RPM) RPM_FLAGS=$(GDAL_RPM_FLAGS)
-# 	$(MAKE) $(LIBEXPAT_RPM) RPM_FLAGS=$(LIBEXPAT_RPM_FLAGS)
-# 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
-# 	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=$(DEPENDENT_RPMS)
-
-gppkg_only:
+gppkg_only: $(GEOS_DIR) $(PROJ_DIR) $(JSON_DIR) $(GDAL_DIR) $(LIBEXPAT_DIR)
+	$(MAKE) $(GEOS_RPM) RPM_FLAGS=$(GEOS_RPM_FLAGS)
+	$(MAKE) $(PROJ_RPM) RPM_FLAGS=$(PROJ_RPM_FLAGS)
+	$(MAKE) $(JSON_RPM) RPM_FLAGS=$(JSON_RPM_FLAGS)
+	$(MAKE) $(GDAL_RPM) RPM_FLAGS=$(GDAL_RPM_FLAGS)
+	$(MAKE) $(LIBEXPAT_RPM) RPM_FLAGS=$(LIBEXPAT_RPM_FLAGS)
 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
 	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=$(DEPENDENT_RPMS)
+
+# gppkg_only:
+# 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
+# 	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=$(DEPENDENT_RPMS)
 
 .PHONY: gppkg
