@@ -28,33 +28,29 @@ mkinstalldirs=$(BLD_TOP)/config/mkinstalldirs
 # versions for these 3rd party libraries and Postgis
 include ../Makefile.version
 
+RPMS_FOLDER=$(shell cd ../rpms && pwd)
 #GOES
 # GEOS_DIR=$(EXT_TOP)/geos-$(GEOS_VER)
-GEOS_DIR=$(shell cd ../rpms && pwd)
 GEOS_CONFIG=$(GEOS_DIR)/bin/geos-config
 GEOS_RPM_FLAGS="--define 'geos_dir $(GEOS_DIR)' --define 'geos_ver $(GEOS_VER)' --define 'geos_rel $(GEOS_REL)'"
-GEOS_RPM=geos-$(GEOS_VER)-$(GEOS_REL).el7.$(ARCH).rpm
+GEOS_RPM=$(RPM_FOLDER)/geos-$(GEOS_VER)-$(GEOS_REL).el7.$(ARCH).rpm
 
 #Proj.4
-PROJ_DIR=$(shell cd ../rpms && pwd)
 PROJ_RPM_FLAGS="--define 'proj_dir $(PROJ_DIR)' --define 'proj_ver $(PROJ_VER)' --define 'proj_rel $(PROJ_REL)'"
-PROJ_RPM=proj-$(PROJ_VER)-$(PROJ_REL).el7.$(ARCH).rpm
+PROJ_RPM=$(RPM_FOLDER)/proj-$(PROJ_VER)-$(PROJ_REL).el7.$(ARCH).rpm
 
 #json-c
-JSON_DIR=$(shell cd ../rpms && pwd)
 JSON_RPM_FLAGS="--define 'json_dir $(JSON_DIR)' --define 'json_ver $(JSON_VER)' --define 'json_rel $(JSON_REL)'"
-JSON_RPM=json-c-$(JSON_VER)-$(JSON_REL).el7.$(ARCH).rpm
+JSON_RPM=$(RPM_FOLDER)/json-c-$(JSON_VER)-$(JSON_REL).el7.$(ARCH).rpm
 
 #GDAL
-GDAL_DIR=$(shell cd ../rpms && pwd)
 GDAL_CONFIG=$(GDAL_DIR)/bin/gdal-config
 GDAL_RPM_FLAGS="--define 'gdal_dir $(GDAL_DIR)' --define 'gdal_ver $(GDAL_VER)' --define 'gdal_rel $(GDAL_REL)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
-GDAL_RPM=gdal-$(GDAL_VER)-$(GDAL_REL).el7.$(ARCH).rpm
+GDAL_RPM=$(RPM_FOLDER)/gdal-$(GDAL_VER)-$(GDAL_REL).el7.$(ARCH).rpm
 
 # LIBEXPAT
-LIBEXPAT_DIR=$(shell cd ../rpms && pwd)
 LIBEXPAT_RPM_FLAGS="--define 'libexpat_dir $(LIBEXPAT_DIR)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
-LIBEXPAT_RPM=expat-$(LIBEXPAT_VER)-$(LIBEXPAT_REL).el7.$(ARCH).rpm
+LIBEXPAT_RPM=$(RPM_FOLDER)/expat-$(LIBEXPAT_VER)-$(LIBEXPAT_REL).el7.$(ARCH).rpm
 
 # POSTGIS
 POSTGIS_DIR=$(shell cd ../build/postgis-$(POSTGIS_VER) && pwd)
