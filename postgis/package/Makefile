@@ -59,7 +59,7 @@ LIBEXPAT_RPM=libexpat-$(LIBEXPAT_VER)-$(LIBEXPAT_REL).$(ARCH).rpm
 POSTGIS_DIR=$(shell cd ../build/postgis-$(POSTGIS_VER) && pwd)
 POSTGIS_PKG_VER=ossv$(POSTGIS_VER)_pv$(PIVOTAL_VER)_gpdb$(GPDB_VER)orca
 POSTGIS_RPM_FLAGS="--define 'bld_top $(BLD_TOP)' --define 'postgis_dir $(POSTGIS_DIR)' --define 'postgis_ver $(POSTGIS_VER)' --define 'postgis_rel $(POSTGIS_REL)' --define 'geos_ver $(GEOS_VER)' --define 'proj_ver $(PROJ_VER)' --define 'json_ver $(JSON_VER)' --define 'gdal_ver $(GDAL_VER)' --define 'libexpat_ver $(LIBEXPAT_VER)'"
-DEPENDENT_RPMS="$(GEOS_RPM) $(PROJ_RPM) $(JSON_RPM) $(GDAL_RPM)"
+DEPENDENT_RPMS="$(GEOS_RPM) $(PROJ_RPM) $(JSON_RPM) $(GDAL_RPM) $(LIBEXPAT_RPM)"
 POSTGIS_RPM=postgis-$(POSTGIS_VER)-$(POSTGIS_REL).$(ARCH).rpm
 
 #GPPKG
