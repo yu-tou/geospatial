@@ -1,8 +1,8 @@
-Summary:        GDAL library 
-License:        MIT/X license        
+Summary:        GDAL library
+License:        MIT/X license
 Name:           gdal
 Version:        %{gdal_ver}
-Release:        %{gdal_rel} 
+Release:        %{gdal_rel}
 Group:          Development/Tools
 Prefix:         /temp
 AutoReq:        no
@@ -15,9 +15,9 @@ The Geos module provides a geospatial data abstraction library which is used by 
 
 %install
 mkdir -p %{buildroot}/temp/lib
-cp -rf %{gdal_dir}/lib/libgdal*so* %{buildroot}/temp/lib/
+cp -rf /usr/lib64/libgdal*so* %{buildroot}/temp/lib/
 mkdir -p %{buildroot}/temp/share
-cp -rf %{gdal_dir}/share/gdal %{buildroot}/temp/share
+cp -rf /usr/share/gdal %{buildroot}/temp/share
 
 %post
 sed -i "s|export GDAL_DATA=\$GPHOME/share/gdal||g" $GPHOME/greenplum_path.sh
