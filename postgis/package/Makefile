@@ -28,29 +28,32 @@ mkinstalldirs=$(BLD_TOP)/config/mkinstalldirs
 # versions for these 3rd party libraries and Postgis
 include ../Makefile.version
 
-RPMS_FOLDER=$(shell cd ../rpms && pwd)
 #GOES
-# GEOS_DIR=$(EXT_TOP)/geos-$(GEOS_VER)
+GEOS_DIR=$(EXT_TOP)/geos-$(GEOS_VER)
 GEOS_CONFIG=$(GEOS_DIR)/bin/geos-config
 GEOS_RPM_FLAGS="--define 'geos_dir $(GEOS_DIR)' --define 'geos_ver $(GEOS_VER)' --define 'geos_rel $(GEOS_REL)'"
-GEOS_RPM=$(RPM_FOLDER)/geos-$(GEOS_VER)-$(GEOS_REL).el7.$(ARCH).rpm
+GEOS_RPM=geos-$(GEOS_VER)-$(GEOS_REL).$(ARCH).rpm
 
 #Proj.4
+PROJ_DIR=$(EXT_TOP)/proj-$(PROJ_VER)
 PROJ_RPM_FLAGS="--define 'proj_dir $(PROJ_DIR)' --define 'proj_ver $(PROJ_VER)' --define 'proj_rel $(PROJ_REL)'"
-PROJ_RPM=$(RPM_FOLDER)/proj-$(PROJ_VER)-$(PROJ_REL).el7.$(ARCH).rpm
+PROJ_RPM=proj-$(PROJ_VER)-$(PROJ_REL).$(ARCH).rpm
 
 #json-c
+JSON_DIR=$(EXT_TOP)/json-c-$(JSON_VER)
 JSON_RPM_FLAGS="--define 'json_dir $(JSON_DIR)' --define 'json_ver $(JSON_VER)' --define 'json_rel $(JSON_REL)'"
-JSON_RPM=$(RPM_FOLDER)/json-c-$(JSON_VER)-$(JSON_REL).el7.$(ARCH).rpm
+JSON_RPM=json-c-$(JSON_VER)-$(JSON_REL).$(ARCH).rpm
 
 #GDAL
+GDAL_DIR=$(EXT_TOP)/gdal-$(GDAL_VER)
 GDAL_CONFIG=$(GDAL_DIR)/bin/gdal-config
 GDAL_RPM_FLAGS="--define 'gdal_dir $(GDAL_DIR)' --define 'gdal_ver $(GDAL_VER)' --define 'gdal_rel $(GDAL_REL)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
-GDAL_RPM=$(RPM_FOLDER)/gdal-$(GDAL_VER)-$(GDAL_REL).el7.$(ARCH).rpm
+GDAL_RPM=gdal-$(GDAL_VER)-$(GDAL_REL).$(ARCH).rpm
 
 # LIBEXPAT
+LIBEXPAT_DIR=$(EXT_TOP)/libexpat-$(LIBEXPAT_VER)
 LIBEXPAT_RPM_FLAGS="--define 'libexpat_dir $(LIBEXPAT_DIR)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
-LIBEXPAT_RPM=$(RPM_FOLDER)/expat-$(LIBEXPAT_VER)-$(LIBEXPAT_REL).el7.$(ARCH).rpm
+LIBEXPAT_RPM=libexpat-$(LIBEXPAT_VER)-$(LIBEXPAT_REL).$(ARCH).rpm
 
 # POSTGIS
 POSTGIS_DIR=$(shell cd ../build/postgis-$(POSTGIS_VER) && pwd)
@@ -98,7 +101,7 @@ gppkg: prepare build_postgis gppkg_only
 # 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
 # 	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=$(DEPENDENT_RPMS)
 
-gppkg_only:
+# gppkg_only:
 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
 	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=$(DEPENDENT_RPMS)
 
