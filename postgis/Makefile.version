@@ -9,7 +9,7 @@ POSTGIS_VER	= 2.5.4
 # -----------------------------------------
 
 # GEOS
-GEOS_VER = 3.5.0
+GEOS_VER = 3.4.2
 GEOS_REL = 1
 
 # PROJ.4
@@ -21,7 +21,7 @@ JSON_VER = 0.11
 JSON_REL = 4
 
 # GDAL
-GDAL_VER = 1.11.4
+GDAL_VER = 1.11.1
 GDAL_REL = 3
 
 # LIBEXPAT

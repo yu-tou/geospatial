@@ -1,8 +1,8 @@
-Summary:        Geos library
-License:        LGPL
+Summary:        Geos library 
+License:        LGPL        
 Name:           geos
 Version:        %{geos_ver}
-Release:        %{geos_rel}
+Release:        %{geos_rel} 
 Group:          Development/Tools
 Prefix:         /temp
 AutoReq:        no
@@ -14,7 +14,7 @@ The Geos module provides geometric library which is used by PostGIS.
 
 %install
 mkdir -p %{buildroot}/temp/lib
-cp -rf /usr/lib64/libgeos*so* %{buildroot}/temp/lib/
+cp -rf %{geos_dir}/lib/libgeos*so* %{buildroot}/temp/lib/
 
 %files
 /temp

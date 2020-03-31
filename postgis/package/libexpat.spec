@@ -2,7 +2,7 @@ Summary:        Expat library
 License:        MIT
 Name:           libexpat
 Version:        %{libexpat_ver}
-Release:        %{libexpat_rel}
+Release:        %{libexpat_rel} 
 Group:          Development/Tools
 Prefix:         /temp
 AutoReq:        no
@@ -18,7 +18,7 @@ xml.com.
 
 %install
 mkdir -p %{buildroot}/temp/lib
-cp -rf /usr/lib64/libexpat*so* %{buildroot}/temp/lib/
+cp -rf %{libexpat_dir}/lib/libexpat*so* %{buildroot}/temp/lib/
 
 %files
 /temp
