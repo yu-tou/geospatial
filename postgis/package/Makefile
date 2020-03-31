@@ -35,23 +35,23 @@ GEOS_RPM_FLAGS="--define 'geos_dir $(GEOS_DIR)' --define 'geos_ver $(GEOS_VER)' 
 GEOS_RPM=geos-$(GEOS_VER)-$(GEOS_REL).$(ARCH).rpm
 
 #Proj.4
-PROJ_DIR=/usr/lib64/
+PROJ_DIR=$(EXT_TOP)/proj-$(PROJ_VER)
 PROJ_RPM_FLAGS="--define 'proj_dir $(PROJ_DIR)' --define 'proj_ver $(PROJ_VER)' --define 'proj_rel $(PROJ_REL)'"
 PROJ_RPM=proj-$(PROJ_VER)-$(PROJ_REL).$(ARCH).rpm
 
 #json-c
-JSON_DIR=/usr/lib64/
+JSON_DIR=$(EXT_TOP)/json-c-$(JSON_VER)
 JSON_RPM_FLAGS="--define 'json_dir $(JSON_DIR)' --define 'json_ver $(JSON_VER)' --define 'json_rel $(JSON_REL)'"
 JSON_RPM=json-c-$(JSON_VER)-$(JSON_REL).$(ARCH).rpm
 
 #GDAL
-GDAL_DIR=/usr/lib64/
+GDAL_DIR=$(EXT_TOP)/gdal-$(GDAL_VER)
 GDAL_CONFIG=$(GDAL_DIR)/bin/gdal-config
 GDAL_RPM_FLAGS="--define 'gdal_dir $(GDAL_DIR)' --define 'gdal_ver $(GDAL_VER)' --define 'gdal_rel $(GDAL_REL)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
 GDAL_RPM=gdal-$(GDAL_VER)-$(GDAL_REL).$(ARCH).rpm
 
 # LIBEXPAT
-LIBEXPAT_DIR=/usr/lib64/
+LIBEXPAT_DIR=$(EXT_TOP)/libexpat-$(LIBEXPAT_VER)
 LIBEXPAT_RPM_FLAGS="--define 'libexpat_dir $(LIBEXPAT_DIR)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
 LIBEXPAT_RPM=libexpat-$(LIBEXPAT_VER)-$(LIBEXPAT_REL).$(ARCH).rpm
 
