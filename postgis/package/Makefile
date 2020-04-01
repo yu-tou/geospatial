@@ -118,6 +118,6 @@ gppkg: prepare build_postgis gppkg_only
 
 gppkg_only:
 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
-	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM)
+	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=
 
 .PHONY: gppkg
