@@ -2,7 +2,8 @@
 
 if [ "$2" = "install" ]
 then
-	if [[! -f "$3" ]]
+	if [ ! -f "$3" ]
+	then
 		echo "Need hostfile"
 		exit 1
 	fi
