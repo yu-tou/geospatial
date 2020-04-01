@@ -40,7 +40,7 @@ extern "C"
 #include "liblwgeom.h"
 
 void GEOSCoordSeq_destroy() { assert(0); }
-void GEOSClipByRect() { assert(0); }
+// void GEOSClipByRect() { assert(0); }
 void GEOSUnion() { assert(0); }
 void GEOSCoordSeq_getDimensions() { assert(0); }
 void GEOSPreparedCovers() { assert(0); }
