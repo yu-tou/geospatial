@@ -2,12 +2,6 @@
 
 if [ "$2" = "install" ]
 then
-	if [ ! -f "$3" ]
-	then
-		echo "Need hostfile"
-		exit 1
-	fi
-	gpssh -f $3 "yum install -y expat expat-devel proj proj-devel json-c json-c-devel gdal gdal-devel --user"
 	psql -d $1 -f $GPHOME/share/postgresql/contrib/postgis-2.5/install/postgis.sql;
 	psql -d $1 -f $GPHOME/share/postgresql/contrib/postgis-2.5/install/rtpostgis.sql;
 	psql -d $1 -f $GPHOME/share/postgresql/contrib/postgis-2.5/install/postgis_comments.sql;
