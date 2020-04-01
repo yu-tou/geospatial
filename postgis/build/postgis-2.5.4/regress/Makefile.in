@@ -266,7 +266,7 @@ ifeq ($(HAVE_SFCGAL),yes)
 endif
 
 # TODO: Revert this. Turn off tests for now to get to raster faster
-TESTS = affine
+# TESTS = affine
 
 all install uninstall:
 
