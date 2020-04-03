@@ -233,7 +233,7 @@ CREATE TABLE foo1 AS
 		(SELECT rast FROM raster_outdb_template WHERE rid = 1),
 	 	ARRAY[]::int[]
 	)
-	LIMIT 1 DISTRIBUTED RANDOMLY;
+	LIMIT 1 DISTRIBUTED REPLICATED;
 
 SET postgis.gdal_enabled_drivers = 'GTiff';
 SET postgis.enable_outdb_rasters = true;
@@ -243,7 +243,7 @@ CREATE TABLE raster1 AS
 			ST_MakeEmptyRaster(90, 90, 0., 0., 1, -1, 0, 0, 0),
 			1, foo1.path, NULL::int[]
 		) AS rast
-	FROM foo1 DISTRIBUTED RANDOMLY;
+	FROM foo1;
 
 SET postgis.gdal_enabled_drivers = 'GTiff';
 SET postgis.enable_outdb_rasters = true;
@@ -262,3 +262,5 @@ UNION ALL
 SELECT
 	ST_Value(rast, 100, 100)
 FROM raster1;
+
+DROP TABLE raster1;
