@@ -41,6 +41,8 @@ cp $GPHOME/share/postgresql/contrib/postgis-2.1/uninstall*.sql %{buildroot}/temp
 
 cp %{postgis_dir}/../../package/postgis_manager.sh %{buildroot}/temp/share/postgresql/contrib/postgis-2.1/postgis_manager.sh
 
+cp %{postgis_dir}/../../package/postgis_replace_views.sql %{buildroot}/temp/share/postgresql/contrib/postgis-2.1/postgis_replace_views.sql
+
 %files
 /temp/bin/pgsql2shp
 /temp/bin/raster2pgsql
@@ -53,6 +55,7 @@ cp %{postgis_dir}/../../package/postgis_manager.sh %{buildroot}/temp/share/postg
 /temp/lib/postgresql/postgis-2.1.so
 /temp/lib/postgresql/rtpostgis-2.1.so
 /temp/share/postgresql/contrib/postgis-2.1/postgis_manager.sh
+/temp/share/postgresql/contrib/postgis-2.1/postgis_replace_views.sql
 /temp/share/postgresql/contrib/postgis-2.1/install/postgis.sql
 /temp/share/postgresql/contrib/postgis-2.1/install/postgis_comments.sql
 /temp/share/postgresql/contrib/postgis-2.1/install/raster_comments.sql
