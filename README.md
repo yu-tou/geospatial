@@ -1,5 +1,5 @@
 # geospatial repo
-PostGIS 2.1.5 for GreenPlum 5.x+
+PostGIS 2.1.5 for Greenplum 5.x and 6.x
 
 ## License
 This project is developed under GPL v2, because PostGIS is GPL v2.
@@ -15,7 +15,7 @@ To compile and install geospatial, use following command:
 ```
 cd postgis/build/postgis-2.1.5/
 ./configure --with-pgconfig=$GPHOME/bin/pg_config --with-raster --without-topology --prefix=$GPHOME
-make USE_PGXS=1 clean all install	
+make USE_PGXS=1 clean all install
 ```
 
 Here USE_PGXS will specify the correct install path to gpdb.
@@ -75,6 +75,6 @@ For e.g. if you compiled and installed `proj` in /tmp/proj-install, this is how
 3. utilities
 
 ## Last update date
-Jingyi Mei, Nov 28th, 2017	
+Jingyi Mei, Nov 28th, 2017
 
 Kuien Liu, Haozhou Wawng, 26 May 2016
