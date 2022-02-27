@@ -16,7 +16,7 @@ export BOOST_VER_WU=1_53_0
 fi;
 export PROTOBUF_VER=3.2.0
 export PROTOBUFC_VER=1.2.1
-export JSON_VER=0.12
+export JSON_VER=0.15
 export PCRE_VER=8.33
 if  [[ "${ICON_VER}" == '' ]] ; then
   export ICON_VER=1.15
