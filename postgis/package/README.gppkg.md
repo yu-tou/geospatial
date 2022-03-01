@@ -7,7 +7,7 @@ Notes for generating gppkg with pre-compiled libraries
 To build postgis gppkg, we first need to download the third-party libraries
 
 ```
-GEOS: geos 3.4.2
+GEOS: geos 3.10.2
 json-c: json-c 0.12
 PROJ.4: proj 4.8.0
 Geospatial-Foundation: gdal 1.11.1

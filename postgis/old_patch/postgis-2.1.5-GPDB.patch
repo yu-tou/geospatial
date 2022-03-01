@@ -48,18 +48,18 @@ index 0000000..971c6e0
 +2. sudo yum install geos-devel -y
 +
 +Installed:
-+  geos-devel.x86_64 0:3.4.2-2.el7
++  geos-devel.x86_64 0:3.10.2-2.el7
 +
 +Dependency Installed:
-+  geos.x86_64 0:3.4.2-2.el7
++  geos.x86_64 0:3.10.2-2.el7
 +
 +3. sudo yum install -y proj-devel
 +
 +Installed:
-+  proj-devel.x86_64 0:4.8.0-4.el7
++  proj-devel.x86_64 0:7.2.1-4.el7
 +
 +  Dependency Installed:
-+    proj.x86_64 0:4.8.0-4.el7
++    proj.x86_64 0:7.2.1-4.el7
 +
 +4. gdal
 +
