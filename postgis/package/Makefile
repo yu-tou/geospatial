@@ -8,11 +8,12 @@
 #------------------------------------------------------------------#
 
 include $(BLD_TOP)/Makefile.global     # for BLD_ARCH
-include $(BLD_TOP)/releng/tools.mk
-EXT_TOP=$(BLD_TOP)/ext/$(BLD_ARCH)
+# include $(BLD_TOP)/releng/tools.mk
+# EXT_TOP=$(BLD_TOP)/ext/$(BLD_ARCH)
 
 #GPDB
-PG_CONFIG=$(BLD_TOP)/../src/bin/pg_config/pg_config
+PG_CONFIG=$(GPHOME)/bin/pg_config
+
 
 PG_DEP_LIB_DIR=$(shell $(PG_CONFIG) --libdir)
 GPDB_LIB_DIR=$(PG_DEP_LIB_DIR)
@@ -29,8 +30,8 @@ mkinstalldirs=$(BLD_TOP)/config/mkinstalldirs
 include ../Makefile.version
 
 #GOES
-GEOS_DIR=$(EXT_TOP)/geos-$(GEOS_VER)
-GEOS_CONFIG=$(GEOS_DIR)/bin/geos-config
+GEOS_DIR=/home/work/greenplum-db-6-postgis/geospatial/geos-3.7.3/_build
+GEOS_CONFIG=/usr/bin/geos-config
 GEOS_RPM_FLAGS="--define 'geos_dir $(GEOS_DIR)' --define 'geos_ver $(GEOS_VER)' --define 'geos_rel $(GEOS_REL)'"
 GEOS_RPM=geos-$(GEOS_VER)-$(GEOS_REL).$(ARCH).rpm
 
@@ -46,7 +47,7 @@ JSON_RPM=json-c-$(JSON_VER)-$(JSON_REL).$(ARCH).rpm
 
 #GDAL
 GDAL_DIR=$(EXT_TOP)/gdal-$(GDAL_VER)
-GDAL_CONFIG=$(GDAL_DIR)/bin/gdal-config
+GDAL_CONFIG=/usr/bin/gdal-config
 GDAL_RPM_FLAGS="--define 'gdal_dir $(GDAL_DIR)' --define 'gdal_ver $(GDAL_VER)' --define 'gdal_rel $(GDAL_REL)' --define 'libexpat_ver $(LIBEXPAT_VER)' --define 'libexpat_rel $(LIBEXPAT_REL)'"
 GDAL_RPM=gdal-$(GDAL_VER)-$(GDAL_REL).$(ARCH).rpm
 
@@ -70,11 +71,12 @@ EXTRA_CLEAN+=$(GEOS_RPM) $(PROJ_RPM) $(JSON_RPM) $(GDAL_RPM) $(LIBEXPAT_RPM) $(P
 #
 # Generic rules to build gppkgs included here
 #
-include $(BLD_TOP)/releng/gppkg.mk
+include /home/work/greenplum-db-6-postgis/gpdb-6.16.x/gpAux/releng/gppkg.mk
 
 # trigger the compiling process
 build_postgis:
-	cd $(POSTGIS_DIR) && $(POSTGIS_DIR)/configure --with-geosconfig=$(GEOS_CONFIG) --with-gdalconfig=$(GDAL_CONFIG) --with-pgconfig=$(PG_CONFIG) --with-raster --without-topology	--prefix=$$GPHOME
+    
+	cd $(POSTGIS_DIR) && make clean && $(POSTGIS_DIR)/configure --with-geosconfig=$(GEOS_CONFIG)   --with-pgconfig=$(PG_CONFIG) --without-raster --without-topology	--prefix=$$GPHOME
 	$(MAKE) -C ..
 
 # for regressing
@@ -90,7 +92,7 @@ SHLIB_LINK := $(SHLIB_LINK_F) $(SHLIB_LINK)
 include Makefile.ops
 
 gppkg_spec.yml: gppkg_spec.yml.in
-	cat $< | sed "s/#arch/$(ARCH)/g" | sed "s/#os/$(OS)/g" | sed 's/#gpver/$(GP_VERSION_NUM)/g' > $@
+	cat $< | sed "s/#arch/$(ARCH)/g" | sed "s/#os/$(OS)/g" | sed 's/#gpver/6.0/g' > $@
 
 %.gppkg: gppkg_spec.yml $(MAIN_RPM) $(DEPENDENT_RPMS)
 	mkdir -p gppkg/deps
@@ -107,12 +109,10 @@ endif
 # for compiling
 gppkg: prepare build_postgis gppkg_only
 
-gppkg_only: $(GEOS_DIR) $(PROJ_DIR) $(JSON_DIR) $(GDAL_DIR) $(LIBEXPAT_DIR)
+geos: 
 	$(MAKE) $(GEOS_RPM) RPM_FLAGS=$(GEOS_RPM_FLAGS)
-	$(MAKE) $(PROJ_RPM) RPM_FLAGS=$(PROJ_RPM_FLAGS)
-	$(MAKE) $(JSON_RPM) RPM_FLAGS=$(JSON_RPM_FLAGS)
-	$(MAKE) $(GDAL_RPM) RPM_FLAGS=$(GDAL_RPM_FLAGS)
-	$(MAKE) $(LIBEXPAT_RPM) RPM_FLAGS=$(LIBEXPAT_RPM_FLAGS)
+
+gppkg_only:  
 	$(MAKE) $(POSTGIS_RPM) RPM_FLAGS=$(POSTGIS_RPM_FLAGS)
 	$(MAKE) $(POSTGIS_GPPKG) MAIN_RPM=$(POSTGIS_RPM) DEPENDENT_RPMS=$(DEPENDENT_RPMS)
 

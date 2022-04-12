@@ -644,7 +644,7 @@ static void parse_values(mvt_agg_context *ctx)
 	/* Build a temporary HeapTuple control structure */
 	tuple.t_len = HeapTupleHeaderGetDatumLength(ctx->row);
 	ItemPointerSetInvalid(&(tuple.t_self));
-	tuple.t_tableOid = InvalidOid;
+	// tuple.t_tableOid = InvalidOid;
 	tuple.t_data = ctx->row;
 
 	/* We use heap_deform_tuple as it costs only O(N) vs O(N^2) of GetAttributeByNum */

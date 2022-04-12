@@ -9,7 +9,7 @@ POSTGIS_VER	= 2.5.4
 # -----------------------------------------
 
 # GEOS
-GEOS_VER = 3.4.2
+GEOS_VER = 3.7.3
 GEOS_REL = 1
 
 # PROJ.4

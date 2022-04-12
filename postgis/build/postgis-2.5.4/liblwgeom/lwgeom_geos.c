@@ -870,38 +870,38 @@ lwgeom_union(const LWGEOM* geom1, const LWGEOM* geom2)
 	return result;
 }
 
-// LWGEOM *
-// lwgeom_clip_by_rect(const LWGEOM *geom1, double x1, double y1, double x2, double y2)
-// {
-// 	LWGEOM *result;
-// 	GEOSGeometry *g1, *g3;
-// 	int is3d;
+LWGEOM *
+lwgeom_clip_by_rect(const LWGEOM *geom1, double x1, double y1, double x2, double y2)
+{
+	LWGEOM *result;
+	GEOSGeometry *g1, *g3;
+	int is3d;
 
-// 	/* A.Intersection(Empty) == Empty */
-// 	if ( lwgeom_is_empty(geom1) )
-// 		return lwgeom_clone_deep(geom1);
+	/* A.Intersection(Empty) == Empty */
+	if ( lwgeom_is_empty(geom1) )
+		return lwgeom_clone_deep(geom1);
 
-// 	is3d = FLAGS_GET_Z(geom1->flags);
+	is3d = FLAGS_GET_Z(geom1->flags);
 
-// 	initGEOS(lwnotice, lwgeom_geos_error);
+	initGEOS(lwnotice, lwgeom_geos_error);
 
-// 	if (!(g1 = LWGEOM2GEOS(geom1, AUTOFIX)))
-// 		GEOS_FAIL_DEBUG();
+	if (!(g1 = LWGEOM2GEOS(geom1, AUTOFIX)))
+		GEOS_FAIL_DEBUG();
 
-// 	if (!(g3 = GEOSClipByRect(g1, x1, y1, x2, y2)))
-// 		GEOS_FREE_AND_FAIL_DEBUG(g1);
+	if (!(g3 = GEOSClipByRect(g1, x1, y1, x2, y2)))
+		GEOS_FREE_AND_FAIL_DEBUG(g1);
 
-// 	GEOS_FREE(g1);
-// 	result = GEOS2LWGEOM(g3, is3d);
-// 	GEOS_FREE(g3);
+	GEOS_FREE(g1);
+	result = GEOS2LWGEOM(g3, is3d);
+	GEOS_FREE(g3);
 
-// 	if (!result)
-// 		GEOS_FAIL_DEBUG();
+	if (!result)
+		GEOS_FAIL_DEBUG();
 
-// 	result->srid = geom1->srid;
+	result->srid = geom1->srid;
 
-// 	return result;
-// }
+	return result;
+}
 
 /* ------------ BuildArea stuff ---------------------------------------------------------------------{ */
 
